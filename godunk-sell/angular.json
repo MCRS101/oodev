@@ -26,6 +26,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -67,17 +68,20 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "godunk-sell:build:production"
-            },
-            "development": {
-              "buildTarget": "godunk-sell:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
+  "builder": "@angular/build:dev-server",
+  "options": {
+    "allowedHosts": ["superlogically-unadministered-karyl.ngrok-free.dev"]
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "godunk-sell:build:production"
+    },
+    "development": {
+      "buildTarget": "godunk-sell:build:development"
+    }
+  },
+  "defaultConfiguration": "development"
+},
         "test": {
           "builder": "@angular/build:unit-test"
         }
