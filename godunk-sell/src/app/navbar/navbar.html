@@ -1,9 +1,21 @@
-<nav class="navbar bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand">Navbar</a>
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+<nav class="d-flex container navbar bg-body-tertiary" >
+  <div>
+    
+  </div>
+  <div class="container-fluid position-relative">
+    <!-- <a class="navbar-brand">Navbar</a> -->
+    <form class="d-flex position-absolute top-50 start-50 translate-middle"
+      role="search">
+      <input class="form-control me-2  " type="search" placeholder="Search"
+        aria-label="Search" />
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    <div class="container">
+      <div class="position-absolute top-50 end-0 translate-middle-y">
+      <button class="btn btn-primary" type="submit">ตระกร้าสินค้า</button>
+      <button class="btn btn-primary" type="submit">ประวติการสั้งซื้อ</button>
+      </div>
+
+    </div>
   </div>
 </nav>
