@@ -24,7 +24,7 @@ export class Login {
       password: this.password
     };
 
-    this.http.post("http://localhost:3000/api/login", body)
+    this.http.post("https://ungrafted-dilan-condimentary.ngrok-free.dev/api/login", body)
     .subscribe({
       next:(res:any)=>{
 
