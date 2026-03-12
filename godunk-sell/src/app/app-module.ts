@@ -11,13 +11,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Navbar } from './navbar/navbar';
 import { Login } from './login/login';
 import { Register } from './register/register';
+import { Home } from './home/home';
 
 @NgModule({
   declarations: [
     App,
     Navbar,
     Login,
-    Register
+    Register,
+    Home
   ],
   imports: [
     BrowserModule,
