@@ -1,5 +1,7 @@
 <app-navbar *ngIf="!['/','/register'].includes(router.url)"></app-navbar>
 <div>
-  <router-outlet></router-outlet>
+  <router-outlet>
+    <app-prodcrd></app-prodcrd>
+  </router-outlet>
 </div>
 
