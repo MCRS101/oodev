@@ -23,7 +23,7 @@ export class Register {
       password: this.password
     };
 
-    this.http.post("https://ungrafted-dilan-condimentary.ngrok-free.dev/api/register", body)
+    this.http.post("/api/register", body)
     .subscribe({
       next:(res:any)=>{
         alert("Register success");
