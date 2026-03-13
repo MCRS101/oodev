@@ -3,11 +3,16 @@ import {
   NgbProgressbarConfig,
   NgbProgressbarModule,
   NgbProgressbarStacked
+<<<<<<< Updated upstream
 } from "./chunk-DPM6KTPD.js";
+=======
+} from "./chunk-2NHSIY6Q.js";
+>>>>>>> Stashed changes
 import {
   NgbRating,
   NgbRatingConfig,
   NgbRatingModule
+<<<<<<< Updated upstream
 } from "./chunk-SILGLHAN.js";
 import {
   NgbToast,
@@ -15,13 +20,20 @@ import {
   NgbToastHeader,
   NgbToastModule
 } from "./chunk-C2HEVBK4.js";
+=======
+} from "./chunk-TXPPGYNQ.js";
+>>>>>>> Stashed changes
 import {
   NgbTimeAdapter,
   NgbTimepicker,
   NgbTimepickerConfig,
   NgbTimepickerI18n,
   NgbTimepickerModule
+<<<<<<< Updated upstream
 } from "./chunk-ZQYOHPXR.js";
+=======
+} from "./chunk-T567E63B.js";
+>>>>>>> Stashed changes
 import {
   NgbScrollSpy,
   NgbScrollSpyConfig,
@@ -30,12 +42,28 @@ import {
   NgbScrollSpyMenu,
   NgbScrollSpyModule,
   NgbScrollSpyService
+<<<<<<< Updated upstream
 } from "./chunk-JFG6GZFK.js";
+=======
+} from "./chunk-QORYVI25.js";
+import {
+  NgbToast,
+  NgbToastConfig,
+  NgbToastHeader,
+  NgbToastModule
+} from "./chunk-ZFI2W3F4.js";
+import {
+  NgbTooltip,
+  NgbTooltipConfig,
+  NgbTooltipModule
+} from "./chunk-6QSOVFXC.js";
+>>>>>>> Stashed changes
 import {
   NgbHighlight,
   NgbTypeahead,
   NgbTypeaheadConfig,
   NgbTypeaheadModule
+<<<<<<< Updated upstream
 } from "./chunk-WRE26OLK.js";
 import {
   NgbTooltip,
@@ -106,6 +134,9 @@ import {
   NgbPaginationPages,
   NgbPaginationPrevious
 } from "./chunk-VFFT7U7H.js";
+=======
+} from "./chunk-ZAQR4L6W.js";
+>>>>>>> Stashed changes
 import {
   NgbCalendar,
   NgbCalendarBuddhist,
@@ -133,16 +164,88 @@ import {
   NgbDatepickerMonth,
   NgbInputDatepicker,
   NgbInputDatepickerConfig
+<<<<<<< Updated upstream
 } from "./chunk-3QMCC24D.js";
 import "./chunk-UKQV4VJD.js";
 import "./chunk-CRCXL2NI.js";
 import "./chunk-7RPWKV2Y.js";
 import "./chunk-X7NQKV5Y.js";
+=======
+} from "./chunk-S6I6UA7M.js";
+import "./chunk-AYC732UY.js";
+import {
+  NgbNav,
+  NgbNavConfig,
+  NgbNavContent,
+  NgbNavItem,
+  NgbNavItemRole,
+  NgbNavLink,
+  NgbNavLinkBase,
+  NgbNavLinkButton,
+  NgbNavModule,
+  NgbNavOutlet,
+  NgbNavPane
+} from "./chunk-GXHWQMWT.js";
+import {
+  NgbDropdown,
+  NgbDropdownAnchor,
+  NgbDropdownButtonItem,
+  NgbDropdownConfig,
+  NgbDropdownItem,
+  NgbDropdownMenu,
+  NgbDropdownModule,
+  NgbDropdownToggle
+} from "./chunk-Y2XFAKGO.js";
+import {
+  NgbPagination,
+  NgbPaginationConfig,
+  NgbPaginationEllipsis,
+  NgbPaginationFirst,
+  NgbPaginationLast,
+  NgbPaginationModule,
+  NgbPaginationNext,
+  NgbPaginationNumber,
+  NgbPaginationPages,
+  NgbPaginationPrevious
+} from "./chunk-24KM7NKK.js";
+import {
+  NgbPopover,
+  NgbPopoverConfig,
+  NgbPopoverModule
+} from "./chunk-FWAQKUMT.js";
+import {
+  NgbCarousel,
+  NgbCarouselConfig,
+  NgbCarouselModule,
+  NgbSlide,
+  NgbSlideEventDirection,
+  NgbSlideEventSource
+} from "./chunk-FJYL4KKM.js";
+import "./chunk-DDWIVOKO.js";
+import "./chunk-C72F5QFJ.js";
+>>>>>>> Stashed changes
 import {
   NgbAlert,
   NgbAlertConfig,
   NgbAlertModule
-} from "./chunk-QTSNOSA5.js";
+} from "./chunk-Q7D7DPYT.js";
+import {
+  NgbAccordionBody,
+  NgbAccordionButton,
+  NgbAccordionCollapse,
+  NgbAccordionConfig,
+  NgbAccordionDirective,
+  NgbAccordionHeader,
+  NgbAccordionItem,
+  NgbAccordionModule,
+  NgbAccordionToggle
+} from "./chunk-B5WXCRPG.js";
+import "./chunk-UKQV4VJD.js";
+import {
+  NgbCollapse,
+  NgbCollapseConfig,
+  NgbCollapseModule
+} from "./chunk-FV26CY37.js";
 import {
   NgbConfig
 } from "./chunk-XGGPAYSX.js";
