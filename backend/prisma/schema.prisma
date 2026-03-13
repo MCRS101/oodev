@@ -14,8 +14,66 @@ datasource db {
 }
 
 model User {
- id       Int    @id @default(autoincrement())
- name     String
- email    String @unique
- password String
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("staff")
+  createdAt DateTime @default(now())
+
+  sales     Sale[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  image       String?
+  name        String
+  price       Float
+  cost        Float
+  barcode     String?  @unique
+  description String?
+  categoryId  Int
+  stock       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  category Category        @relation(fields: [categoryId], references: [id])
+  items    SaleItem[]
+  stocks   StockMovement[]
+}
+
+model Sale {
+  id        Int       @id @default(autoincrement())
+  total     Float
+  createdAt DateTime  @default(now())
+  userId    Int
+
+  user      User      @relation(fields: [userId], references: [id])
+  items     SaleItem[]
+}
+
+model SaleItem {
+  id        Int     @id @default(autoincrement())
+  saleId    Int
+  productId Int
+  qty       Int
+  price     Float
+
+  sale      Sale    @relation(fields: [saleId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model StockMovement {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  qty       Int
+  type      String
+  createdAt DateTime @default(now())
+
+  product   Product  @relation(fields: [productId], references: [id])
 }
