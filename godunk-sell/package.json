@@ -32,11 +32,8 @@
     "@ng-bootstrap/ng-bootstrap": "^20.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
-<<<<<<< Updated upstream
-=======
     "cors": "^2.8.6",
     "prisma": "^7.5.0",
->>>>>>> Stashed changes
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
