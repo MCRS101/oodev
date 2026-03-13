@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../services/product';
 import { ChangeDetectorRef } from '@angular/core';
+import { SearchService } from '../services/search.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -10,28 +12,36 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
+  filteredProducts: any[] = [];
+  products: any[] = [];
 
-
-  products:any[] = []
-
-  constructor(private productService: Product,
-   
-  private cd: ChangeDetectorRef
-  ){}
+  constructor(
+    private productService: Product,
+    private cd: ChangeDetectorRef,
+    private cartService: CartService,
+    private searchService: SearchService,
+  ) {}
 
   ngOnInit(): void {
-      console.log("HOME INIT")
-    this.loadProducts()
+    console.log('HOME INIT');
+    this.loadProducts();
+    this.searchService.search$.subscribe((keyword) => {
+      const k = keyword.toLowerCase();
+
+      this.filteredProducts = this.products.filter((p) => p.name.toLowerCase().includes(k));
+    });
   }
+  addToCart(product: any) {
+    this.cartService.addToCart(product);
+    alert('เพิ่มลงตะกร้าแล้ว');
+  }
+  loadProducts() {
+    this.productService.getProducts().subscribe((res) => {
+      console.log(res);
 
-  loadProducts(){
-  this.productService.getProducts()
-  .subscribe(res=>{
-    console.log(res)
-
-    this.products = [...res]   
-    this.cd.detectChanges()// สำคัญ
-  })
-}
-
+      this.products = [...res];
+      this.filteredProducts = [...res];
+      this.cd.detectChanges(); // สำคัญ
+    });
+  }
 }

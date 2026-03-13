@@ -19,6 +19,7 @@ model User {
   email     String   @unique
   password  String
   role      String   @default("staff")
+  location  String?
   createdAt DateTime @default(now())
 
   sales     Sale[]
@@ -77,3 +78,4 @@ model StockMovement {
 
   product   Product  @relation(fields: [productId], references: [id])
 }
+
