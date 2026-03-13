@@ -1,0 +1,52 @@
+<div class="page-container">
+  <header class="header">
+    <h1>ข้อมูลการขาย (จากลูกค้า)</h1>
+    <button class="profile-btn">
+      <span class="avatar">👤</span> เจ้าหน้าที่การเงิน
+    </button>
+  </header>
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2 class="card-title">รายการรับเงินจากลูกค้า (Accounts Receivable)</h2>
+      <button class="btn-export">
+        <span class="icon">📥</span> Export Excel
+      </button>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>รหัสใบสั่งซื้อ (Order ID)</th>
+          <th>วันที่</th>
+          <th>ชื่อลูกค้า (Customer)</th>
+          <th>ยอดเงินที่ต้องรับ</th>
+          <th>สถานะการโอน</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ORD-2026-001</td>
+          <td>11 มี.ค. 2026</td>
+          <td>บริษัท ลูกค้าเอ จำกัด</td>
+          <td class="text-green">฿ 45,000</td>
+          <td><span class="badge badge-success">โอนแล้ว</span></td>
+          <td>
+            <button class="btn btn-outline">ดูสลิป</button>
+          </td>
+        </tr>
+        <tr>
+          <td>ORD-2026-002</td>
+          <td>11 มี.ค. 2026</td>
+          <td>คุณ สมชาย ใจดี</td>
+          <td class="text-green">฿ 12,500</td>
+          <td><span class="badge badge-warning">รอการโอน</span></td>
+          <td>
+            <button class="btn btn-primary">ยืนยันรับยอด</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
