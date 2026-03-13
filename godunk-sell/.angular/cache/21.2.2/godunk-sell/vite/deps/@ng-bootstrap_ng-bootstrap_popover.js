@@ -2,11 +2,11 @@ import {
   NgbPopover,
   NgbPopoverConfig,
   NgbPopoverModule
-} from "./chunk-PRABJCIW.js";
-import "./chunk-7RPWKV2Y.js";
-import "./chunk-X7NQKV5Y.js";
+} from "./chunk-D4NYCNZC.js";
 import "./chunk-XGGPAYSX.js";
 import "./chunk-DZ3ZL2B2.js";
+import "./chunk-7RPWKV2Y.js";
+import "./chunk-X7NQKV5Y.js";
 import "./chunk-DHHFTOSG.js";
 export {
   NgbPopover,
