@@ -9,42 +9,37 @@ import { Router } from '@angular/router';
   styleUrl: './login.css',
 })
 export class Login {
- email = "";
-  password = "";
+  email = '';
+  password = '';
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {}
 
-  login(){
-
+  login() {
     const body = {
       email: this.email,
-      password: this.password
+      password: this.password,
     };
 
-    this.http.post("/api/login", body)
-    .subscribe({
-      next:(res:any)=>{
-
-        alert("Login success");
+    this.http.post('/api/login', body).subscribe({
+      next: (res: any) => {
+        alert('Login success');
 
         console.log(res);
 
         // บันทึก user
-        localStorage.setItem("user", JSON.stringify(res.user));
+        localStorage.setItem('user', JSON.stringify(res.user));
 
         // ไปหน้า dashboard
         this.router.navigate(['/home']);
-
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
-        alert("Email หรือ Password ไม่ถูกต้อง");
-      }
+        alert('Email หรือ Password ไม่ถูกต้อง');
+      },
     });
-
   }
-
+  
 }
