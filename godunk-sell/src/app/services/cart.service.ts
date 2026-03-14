@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
+
+    constructor(private http: HttpClient) {}
   cart: any[] = [];
   remove(item: any) {
     this.cart = this.cart.filter((p) => p.id !== item.id);
@@ -33,5 +35,24 @@ getTotalQty(){
     return sum + item.qty
   },0)
 }
+checkout(userId:number){
+
+    const payload = {
+      userId: userId,
+      items: this.cart.map(item => ({
+        productId: item.id,
+        qty: item.qty,
+        price: item.price
+      }))
+    }
+
+    return this.http.post("/api/order", payload)
+
+  }
+
+  clearCart(){
+    this.cart = []
+  }
+
 
 }
