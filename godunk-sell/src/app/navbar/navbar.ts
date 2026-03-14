@@ -14,6 +14,7 @@ export class Navbar {
   user: any = null;
   location: string = '';
   receipt: any = null;
+  orders: any[] = [];
 
   increase(item: any) {
     item.qty++;
@@ -54,7 +55,13 @@ export class Navbar {
   remove(item: any) {
     this.cartService.remove(item);
   }
-
+  loadOrders() {
+    this.http.get<any>('http://localhost:3000/api/getorder').subscribe((res) => {
+      this.orders = res;
+      this.cdr.detectChanges();
+      console.log(res);
+    });
+  }
   checkout() {
     if (this.cartService.getCart().length === 0) {
       alert('ตะกร้าว่าง');
@@ -100,4 +107,26 @@ export class Navbar {
       },
     });
   }
+  viewReceipt(id: number) {
+
+  this.http.get(`/api/order/${id}`).subscribe((order: any) => {
+
+    this.receipt = order;
+
+    // บังคับ Angular render
+    this.cdr.detectChanges();
+const modal = document.getElementById('historyModal');
+        if (modal) {
+          (window as any).bootstrap.Modal.getInstance(modal)?.hide();
+        }
+    const modalElement = document.getElementById('receiptModal');
+
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
+    }
+
+  });
+
+}
 }

@@ -10,6 +10,8 @@ const orderController = require("../controller/order.controller")
 router.post("/order", orderController.createSale);
 router.get("/order/:id", orderController.getorder);
 
+router.get("/getorder", orderController.getOrdersAll);
+
 router.post("/register", authController.register);
 
 router.post("/login", authController.login);
