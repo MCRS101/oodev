@@ -26,25 +26,26 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>ORD-2026-001</td>
-          <td>11 มี.ค. 2026</td>
-          <td>บริษัท ลูกค้าเอ จำกัด</td>
-          <td class="text-green">฿ 45,000</td>
-          <td><span class="badge badge-success">โอนแล้ว</span></td>
+        <tr *ngFor="let order of orders">
+
+          <td>{{ order.id }}</td>
+
+          <td>{{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+
+          <td>ลูกค้ารหัส: {{ order.userId }}</td>
+
+          <td style="color: #28a745; font-weight: bold;">฿ {{ order.total | number }}</td>
+
           <td>
-            <button class="btn btn-outline">ดูสลิป</button>
+            <span
+              style="background-color: #ffc107; color: #000; padding: 5px 10px; border-radius: 20px; font-size: 0.85em;">รอการโอน</span>
           </td>
-        </tr>
-        <tr>
-          <td>ORD-2026-002</td>
-          <td>11 มี.ค. 2026</td>
-          <td>คุณ สมชาย ใจดี</td>
-          <td class="text-green">฿ 12,500</td>
-          <td><span class="badge badge-warning">รอการโอน</span></td>
+
           <td>
-            <button class="btn btn-primary">ยืนยันรับยอด</button>
+            <button
+              style="background-color: #0d6efd; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">ยืนยันรับยอด</button>
           </td>
+
         </tr>
       </tbody>
     </table>
