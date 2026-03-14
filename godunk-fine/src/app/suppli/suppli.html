@@ -1,0 +1,52 @@
+<div class="page-container">
+  <header class="header">
+    <h1>ข้อมูลการซื้อ (สั่งโดย Manager)</h1>
+    <button class="profile-btn">
+      <span class="avatar">👤</span> เจ้าหน้าที่การเงิน
+    </button>
+  </header>
+
+  <div class="content-card">
+    <div class="card-header">
+      <h2 class="card-title">รายการสั่งซื้อโดย Manager (Accounts Payable)</h2>
+      <button class="btn-export">
+        <span class="icon">📥</span> Export Excel
+      </button>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>รหัสสั่งซื้อ (PO Number)</th>
+          <th>วันที่ Manager สั่ง</th>
+          <th>ชื่อผู้ขาย (Supplier)</th>
+          <th>ยอดเงินที่ต้องจ่าย</th>
+          <th>สถานะการจ่ายเงิน</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>PO-2026-055</td>
+          <td>10 มี.ค. 2026</td>
+          <td>Supplier B (ผู้ขายวัตถุดิบ)</td>
+          <td class="text-red">฿ 22,000</td>
+          <td><span class="badge badge-warning">รอจ่ายเงิน</span></td>
+          <td>
+            <button class="btn btn-primary">ทำรายการจ่าย</button>
+          </td>
+        </tr>
+        <tr>
+          <td>PO-2026-054</td>
+          <td>08 มี.ค. 2026</td>
+          <td>Supplier C</td>
+          <td class="text-red">฿ 18,000</td>
+          <td><span class="badge badge-success">ชำระแล้ว</span></td>
+          <td>
+            <button class="btn btn-outline">ดูหลักฐาน</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="home-container">
+  <header class="header">
+    <h1>ภาพรวมการเงิน</h1>
+    <button class="profile-btn">
+      <span class="avatar">👤</span> เจ้าหน้าที่การเงิน
+    </button>
+  </header>
+
+  <div class="summary-grid">
+    <div class="card border-green">
+      <p class="card-label">รายรับรวม (ยอดซื้อจากลูกค้า)</p>
+      <h2 class="card-value text-green">จำนวนเงิน</h2>
+    </div>
+    
+    <div class="card border-red">
+      <p class="card-label">รายจ่ายรวม (สั่งซื้อจาก Manager)</p>
+      <h2 class="card-value text-red">จำนวนเงิน</h2>
+    </div>
+
+    <div class="card border-blue">
+      <p class="card-label">ยอดเงินคงเหลือสุทธิ</p>
+      <h2 class="card-value text-black">จำนวนเงิน</h2>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3 class="table-title">รายการเคลื่อนไหวล่าสุด (Recent Transactions)</h3>
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <th>วันที่</th>
+          <th>ประเภท</th>
+          <th>รายละเอียด</th>
+          <th>จำนวนเงิน</th>
+          <th>สถานะ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>11 มี.ค. 2026</td>
+          <td class="text-green">รายรับ</td>
+          <td>ขายสินค้าให้ ลูกค้าเอ</td>
+          <td class="text-green">+ ฿ 45,000</td>
+          <td><span class="badge badge-success">เรียบร้อย</span></td>
+        </tr>
+        <tr>
+          <td>10 มี.ค. 2026</td>
+          <td class="text-red">รายจ่าย</td>
+          <td>Manager สั่งของจาก Supplier B</td>
+          <td class="text-red">- ฿ 22,000</td>
+          <td><span class="badge badge-warning">รอจ่ายเงิน</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

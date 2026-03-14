@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f3f4f6; /* สีพื้นหลังเทาอ่อน */
+  font-family: 'Sarabun', 'Prompt', sans-serif; /* แนะนำให้ใช้ฟอนต์ไทย */
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ใส่ไว้ใน styles.css (Global) ด้วยเพื่อให้หน้าเว็บเต็มจอพอดี */
+/* body { margin: 0; padding: 0; } */
