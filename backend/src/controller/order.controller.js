@@ -1,6 +1,24 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+exports.getOrdersAll = async (req, res) => {
+  try {
 
+    const orders = await prisma.sale.findMany({
+      include: {
+        items: {
+          include: {
+            product: true
+          }
+        }
+      }
+    })
+
+    res.json(orders)
+
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
 exports.getorder = async (req,res)=>{
 
  const order = await prisma.sale.findUnique({
