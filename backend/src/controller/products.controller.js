@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const prisma = require("../prisma"); // import prisma client
 
+
 // GET products
 exports.getproduct = async (req, res)=>{
 

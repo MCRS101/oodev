@@ -1,21 +1,147 @@
-<nav class="d-flex container-fluid navbar bg-body-tertiary" >
+<nav class="d-flex container-fluid navbar bg-body-tertiary">
   <div>
-    
+
   </div>
   <div class="container-fluid position-relative">
     <a class="navbar-brand"></a>
-    <form class="d-flex position-absolute top-50 start-50 translate-middle"
-      role="search">
-      <input class="form-control me-2  " type="search" placeholder="Search"
-        aria-label="Search" />
-      <button class="btn btn-outline-success" type="submit">Search</button>
+    <form class="d-flex position-absolute top-50 start-50 translate-middle" (submit)="$event.preventDefault()">
+
+      <input class="form-control me-2" type="search" name="search" placeholder="Search" [(ngModel)]="searchText" />
+
+      <button class="btn btn-outline-success" (click)="search()">
+        Search
+      </button>
+
     </form>
     <div class="d-flex gap-2">
-      <button class="btn btn-primary" type="submit">ตระกร้าสินค้า</button>
+      <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+        data-bs-target="#cartModal">ตระกร้าสินค้า🛒({{cartService.getCart().length}})</button>
       <button class="btn btn-primary" type="submit">ประวัติการสั่งซื้อ</button>
+      <span *ngIf="user">
+        👤 {{user.name}}
+      </span>
       <a class="navbar-brand" href="#"></a>
       <img src="imgsrc/icon.jpg" alt="Logo" width="45" height="40" class="d-flex align-text-top">
+      <button class="btn btn-danger btn-sm" (click)="logout()">
+        Logout
+      </button>
     </div>
-      
+
   </div>
+
 </nav>
+<div class="modal fade" id="cartModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">🛒 ตระกร้าสินค้า</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="mt-4">
+
+        <label class="form-label">ที่อยู่จัดส่ง</label>
+
+        <h5 class="form-control">
+          {{location}}
+        </h5>
+
+      </div>
+      <div class="modal-body">
+
+        <div *ngIf="cartService.getCart().length === 0">
+          ไม่มีสินค้าในตะกร้า
+        </div>
+
+        <div *ngFor="let item of cartService.getCart()" class="d-flex align-items-center border-bottom pb-3 mb-3">
+
+          <img [src]="item.image" width="70" class="me-3">
+
+          <div class="grow">
+            <h6>{{item.name}}</h6>
+            <p class="text-success">{{item.price}} บาท</p>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 m-4">
+
+            <button class="btn btn-sm btn-outline-secondary" (click)="decrease(item)">
+              -
+            </button>
+
+            {{item.qty}}
+
+            <button class="btn btn-sm btn-outline-secondary" (click)="increase(item)">
+              +
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="remove(item)">
+              🗑
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <h5 class="me-auto">
+          จำนวนรวม {{cartService.getTotalQty()}} รายการ
+        </h5>
+        <h5 class="me-auto">
+          รวม {{cartService.getTotal()}} บาท
+        </h5>
+
+        <button class="btn btn-success" (click)="checkout()">
+          สั่งซื้อสินค้า
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="receiptModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">🧾 ใบเสร็จ</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" *ngIf="receipt">
+
+        <p>เลขบิล : {{receipt.id}}</p>
+
+        <p>ผู้ซื้อ : {{user?.name}}</p>
+
+        <p>ที่อยู่ : {{location}}</p>
+
+        <p>วันที่ : {{receipt.createdAt | date:'short'}}</p>
+
+        <table class="table">
+          <tr>
+            <th>สินค้า</th>
+            <th>จำนวน</th>
+            <th>ราคา</th>
+          </tr>
+
+          <tr *ngFor="let item of receipt?.items">
+            <td>{{item.product?.name}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.price * item.qty}} บาท</td>
+          </tr>
+        </table>
+
+        <h4>รวม {{receipt.total}} บาท</h4>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="window.print()">🖨 Print</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal" >ปิด</button>
+      </div>
+
+    </div>
+  </div>
+</div>

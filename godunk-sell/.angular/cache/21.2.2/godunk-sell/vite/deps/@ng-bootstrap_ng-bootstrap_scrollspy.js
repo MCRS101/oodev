@@ -6,12 +6,13 @@ import {
   NgbScrollSpyMenu,
   NgbScrollSpyModule,
   NgbScrollSpyService
-} from "./chunk-26H4KFCN.js";
-import "./chunk-UKQV4VJD.js";
-import "./chunk-DZ3ZL2B2.js";
-import "./chunk-7RPWKV2Y.js";
-import "./chunk-X7NQKV5Y.js";
-import "./chunk-DHHFTOSG.js";
+} from "./chunk-ZHDEW7VG.js";
+import "./chunk-T3QSDYKE.js";
+import "./chunk-2D3CDRK4.js";
+import "./chunk-PMOVCN4L.js";
+import "./chunk-P2E7V6KU.js";
+import "./chunk-TYGSDYET.js";
+import "./chunk-GMLBTAPW.js";
 export {
   NgbScrollSpy,
   NgbScrollSpyConfig,
