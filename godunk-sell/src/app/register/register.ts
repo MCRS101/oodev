@@ -12,11 +12,15 @@ export class Register {
  name = "";
   email = "";
   password = "";
-
+  confirmPassword= "";
   constructor(private http: HttpClient, private router: Router) {}
 
   register(){
-
+// check password match
+    if(this.password !== this.confirmPassword){
+      alert("Password ไม่ตรงกัน");
+      return;
+    }
     const body = {
       name: this.name,
       email: this.email,

@@ -15,7 +15,7 @@ export class Navbar {
   location: string = '';
   receipt: any = null;
   orders: any[] = [];
-
+  page = 1;
   increase(item: any) {
     item.qty++;
   }
@@ -55,8 +55,22 @@ export class Navbar {
   remove(item: any) {
     this.cartService.remove(item);
   }
+  nextPage() {
+    this.page++;
+    this.loadOrders();
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadOrders();
+    }
+  }
   loadOrders() {
-    this.http.get<any>('http://localhost:3000/api/getorder').subscribe((res) => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userId = user.id;
+
+    this.http.get<any>(`/api/orders/user/${userId}?page=${this.page}`).subscribe((res) => {
       this.orders = res;
       this.cdr.detectChanges();
       console.log(res);
@@ -108,25 +122,21 @@ export class Navbar {
     });
   }
   viewReceipt(id: number) {
+    this.http.get(`/api/order/${id}`).subscribe((order: any) => {
+      this.receipt = order;
 
-  this.http.get(`/api/order/${id}`).subscribe((order: any) => {
+      // บังคับ Angular render
+      this.cdr.detectChanges();
+      const modal = document.getElementById('historyModal');
+      if (modal) {
+        (window as any).bootstrap.Modal.getInstance(modal)?.hide();
+      }
+      const modalElement = document.getElementById('receiptModal');
 
-    this.receipt = order;
-
-    // บังคับ Angular render
-    this.cdr.detectChanges();
-const modal = document.getElementById('historyModal');
-        if (modal) {
-          (window as any).bootstrap.Modal.getInstance(modal)?.hide();
-        }
-    const modalElement = document.getElementById('receiptModal');
-
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }
-
-  });
-
-}
+      if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+      }
+    });
+  }
 }

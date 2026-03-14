@@ -1,5 +1,31 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+exports.getOrdersByUser = async (req, res) => {
+
+  const userId = Number(req.params.userId);
+  const page = Number(req.query.page) || 1;
+  const limit = 12;
+  const orders = await prisma.sale.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: "asc"
+    },
+     skip: (page - 1) * limit,
+    take: limit
+  });
+
+  res.json(orders);
+
+};
 exports.getOrdersAll = async (req, res) => {
   try {
 
@@ -10,7 +36,10 @@ exports.getOrdersAll = async (req, res) => {
             product: true
           }
         }
-      }
+      },
+       orderBy: {
+      createdAt: "asc"
+    }
     })
 
     res.json(orders)
