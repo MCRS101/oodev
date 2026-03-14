@@ -4,6 +4,11 @@ const router = express.Router();
 const authController = require("../controller/auth.controller");
 const productsController = require("../controller/products.controller")
 const authMiddleware = require("../middleware/auth.middleware");
+const orderController = require("../controller/order.controller")
+
+
+router.post("/order", orderController.createSale);
+router.get("/order/:id", orderController.getorder);
 
 router.post("/register", authController.register);
 
