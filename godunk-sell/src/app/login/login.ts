@@ -16,7 +16,10 @@ export class Login {
     private http: HttpClient,
     private router: Router,
   ) {}
-
+  openvideo(){
+    alert('กะแนวนี้แหละ รหัสกะยังลืม เขาเด้ คือลืม บ่ได้ sing"บ่ฮักกะเซาเถาะ ไปต่อบ่ไดกะพอซำนี้นั่นละ"');
+    window.open("https://youtu.be/uQ9J591NmAQ?si=eETS-tbiGhrxfZ3C&t=92", "_blank");
+  }
   login() {
     const body = {
       email: this.email,
