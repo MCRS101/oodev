@@ -9,17 +9,17 @@
   <div class="summary-grid">
     <div class="card border-green">
       <p class="card-label">รายรับรวม (ยอดซื้อจากลูกค้า)</p>
-      <h2 class="card-value text-green">จำนวนเงิน</h2>
+      <h2 class="card-value text-green">฿ {{ totalIncome | number }}</h2>
     </div>
     
     <div class="card border-red">
       <p class="card-label">รายจ่ายรวม (สั่งซื้อจาก Manager)</p>
-      <h2 class="card-value text-red">จำนวนเงิน</h2>
+      <h2 class="card-value text-red">฿ {{ totalExpense | number }}</h2>
     </div>
 
     <div class="card border-blue">
       <p class="card-label">ยอดเงินคงเหลือสุทธิ</p>
-      <h2 class="card-value text-black">จำนวนเงิน</h2>
+      <h2 class="card-value text-black">฿ {{ netBalance | number }}</h2>
     </div>
   </div>
 
@@ -36,19 +36,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>11 มี.ค. 2026</td>
-          <td class="text-green">รายรับ</td>
-          <td>ขายสินค้าให้ ลูกค้าเอ</td>
-          <td class="text-green">+ ฿ 45,000</td>
-          <td><span class="badge badge-success">เรียบร้อย</span></td>
-        </tr>
-        <tr>
-          <td>10 มี.ค. 2026</td>
-          <td class="text-red">รายจ่าย</td>
-          <td>Manager สั่งของจาก Supplier B</td>
-          <td class="text-red">- ฿ 22,000</td>
-          <td><span class="badge badge-warning">รอจ่ายเงิน</span></td>
+        <tr *ngFor="let item of transactions">
+          <td>{{ item.date }}</td>
+          <td [ngClass]="item.type === 'รายรับ' ? 'text-green' : 'text-red'">{{ item.type }}</td>
+          <td>{{ item.detail }}</td>
+          <td [ngClass]="item.type === 'รายรับ' ? 'text-green' : 'text-red'">
+            {{ item.type === 'รายรับ' ? '+' : '-' }} ฿ {{ item.amount | number }}
+          </td>
+          <td>
+            <span class="badge" [ngClass]="item.status === 'เรียบร้อย' ? 'badge-success' : 'badge-warning'">
+              {{ item.status }}
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
