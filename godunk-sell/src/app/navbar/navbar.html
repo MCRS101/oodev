@@ -22,8 +22,8 @@
       <span *ngIf="user">
         👤 {{user.name}}
       </span>
-      <a class="navbar-brand" href="#"></a>
-      <img src="imgsrc/icon.jpg" alt="Logo" width="45" height="40" class="d-flex align-text-top">
+      <a class="navbar-brand" ></a>
+      <img src="imgsrc/icon.jpg" alt="Logo" width="45" height="40" class="d-flex align-text-top" routerLink="/about" style=" cursor: pointer;">
       <button class="btn btn-danger btn-sm" (click)="logout()">
         Logout
       </button>

@@ -2,6 +2,26 @@ const prisma = require("../prisma");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+exports.updateProfile = async (req,res) =>{
+  try{
+    const {id, name ,phone, location} = req.body;
+    const updatedUser = await prisma.user.update({
+      where: { id: Number(id) },
+      data: {
+        name: name,
+        phone: phone,
+        location: location,
+      },
+    });
+res.json({
+      message: "อัปเดตข้อมูลสำเร็จ",
+      user: updatedUser
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.register = async (req, res) => {
 
   try {

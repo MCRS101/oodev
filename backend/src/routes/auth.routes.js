@@ -6,6 +6,7 @@ const productsController = require("../controller/products.controller")
 const authMiddleware = require("../middleware/auth.middleware");
 const orderController = require("../controller/order.controller")
 
+router.put("/update-profile", authController.updateProfile);
 
 router.post("/order", orderController.createSale);
 

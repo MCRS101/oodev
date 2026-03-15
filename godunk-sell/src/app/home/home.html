@@ -8,10 +8,7 @@
         <div class="card h-100 shadow">
 
           <!-- รูปสินค้า -->
-          <img 
-            [src]="product.image || 'https://via.placeholder.com/300'"
-            class="card-img-top"
-            alt="product">
+          <img [src]="product.image || 'https://via.placeholder.com/300'" class="card-img-top" alt="product">
 
           <div class="card-body">
 
@@ -43,8 +40,9 @@
               ดูสินค้า
             </button>
 
-            <button class="btn btn-success w-100" (click)="addToCart(product)">
-              เพิ่มลงตะกร้า
+            <button class="btn btn-success w-100" [disabled]="product.stock <= 0" (click)="addToCart(product)">
+              <span *ngIf="product.stock > 0">เพิ่มลงตะกร้า</span>
+              <span *ngIf="product.stock <= 0" >สินค้าหมด</span>
             </button>
 
           </div>

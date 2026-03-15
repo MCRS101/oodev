@@ -112,6 +112,9 @@ export class Navbar {
           if (modalElement) {
             const receiptModal = new (window as any).bootstrap.Modal(modalElement);
             receiptModal.show();
+            modalElement.addEventListener('hidden.bs.modal', () => {
+              window.location.reload(); // สั่งรีโหลดหน้าจอ
+            });
           }
         });
       },

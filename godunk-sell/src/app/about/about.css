@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* สีเทาที่เป็น Container ตามรูปที่ 11 */
+  background-color: #e9ecef; 
+  font-family: sans-serif;
+}
+
+/* ปรับ container ให้ยืดเต็มความสูงจอ */
+.container {
+    min-height: calc(100vh - 70px); /* ลบความสูง Navbar ออกเพื่อให้พอดีจอ */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* ดัน Card ขึ้นด้านบนเล็กน้อยตามรูป */
+    padding-top: 3rem; /* ระยะห่างจากด้านบน */
+    width: 100%;
+    max-width: 100% !important; /* บังคับให้พื้นหลังกว้างเต็มจอ */
+}
+
+.card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 850px; /* กำหนดความกว้างของตัว Card ให้กว้างตามต้องการ */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. ปรับขนาด Input ให้ดูใหญ่และพรีเมียมขึ้น */
+input, textarea {
+    width: 100%;
+    padding: 12px 15px; /* เพิ่มความหนา */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+/* 4. ปรับระยะห่างส่วนหัวและฟอร์มให้ชิดขึ้น */
+.back-home {
+  display: block;
+  text-align: right;
+  margin-bottom: 5px;
+  color: #666;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px; /* ลดช่องว่างใต้เส้นแบ่ง */
+}
+
+.avatar {
+  width: 65px; /* ลดขนาดรูปเล็กน้อยช่วยประหยัดพื้นที่แนวตั้ง */
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-title h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  margin-left: 25px;
+}
+
+.profile-title p {
+  color: #999; /* ปรับสีให้จางลงตามที่คุณต้องการ */
+  font-size: 12px;
+  margin-left: 25px;
+}
+
+/* 5. บีบช่องไฟของฟอร์ม */
+.form-group {
+  margin-bottom: 10px; /* ลดจาก 12px เพื่อดึงทุกอย่างขึ้นมา */
+}
+
+label {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px 12px; /* ลดความหนาของช่องกรอก */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.col {
+  flex: 1;
+}
+
+.helper-text {
+  font-size: 11px;
+  color: #aaaaaa;
+  margin-top: 2px;
+}
+
+/* 6. ปุ่มกด */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.cancel { background: #eee; color: #555; }
+.save { background: #1a73e8; color: white; }
