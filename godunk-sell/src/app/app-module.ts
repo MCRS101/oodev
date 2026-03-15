@@ -12,6 +12,7 @@ import { Navbar } from './navbar/navbar';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Home } from './home/home';
+import { About } from './about/about';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { Home } from './home/home';
     Navbar,
     Login,
     Register,
-    Home
+    Home,
+    About
   ],
   imports: [
     BrowserModule,

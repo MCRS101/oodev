@@ -32,8 +32,12 @@ export class Home implements OnInit {
     });
   }
   addToCart(product: any) {
+    if (product.stock > 0) {
     this.cartService.addToCart(product);
     alert('เพิ่มลงตะกร้าแล้ว');
+  }else{
+    alert('ขออภัย สินค้าชิ้นนี้หมดแล้ว');
+  }
   }
   loadProducts() {
     this.productService.getProducts().subscribe((res) => {
