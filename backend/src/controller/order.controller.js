@@ -31,6 +31,7 @@ exports.getOrdersAll = async (req, res) => {
 
     const orders = await prisma.sale.findMany({
       include: {
+        user: true,
         items: {
           include: {
             product: true

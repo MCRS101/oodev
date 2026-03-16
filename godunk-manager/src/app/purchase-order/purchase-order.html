@@ -1,0 +1,48 @@
+<div class="container-fluid p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold m-0">จัดการใบสั่งของ (Orders)</h2>
+      <p class="text-muted small m-0">ตรวจสอบและอัปเดตสถานะการจัดส่ง</p>
+    </div>
+    <button mat-flat-button class="btn-export">
+      <mat-icon>download</mat-icon> ส่งออกข้อมูล
+    </button>
+  </div>
+
+  <mat-card class="order-card-container">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle m-0">
+        <thead>
+          <tr class="text-muted">
+            <th class="ps-4">รหัส PO</th>
+            <th>ลูกค้า</th>
+            <th>วันที่สั่งซื้อ</th>
+            <th class="text-end">ยอดรวม</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-end pe-4">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orders" class="order-row">
+            <td class="ps-4 fw-bold text-primary">{{item.po}}</td>
+            <td>
+              <div class="fw-bold">{{item.customer}}</div>
+            </td>
+            <td class="text-muted">{{item.date}}</td>
+            <td class="text-end fw-bold">
+              {{ item.total | currency:'THB':'symbol-narrow':'1.0-0' }}
+            </td>
+            <td class="text-center">
+              <span class="status-badge" [ngClass]="item.status">
+                {{ item.status }}
+              </span>
+            </td>
+            <td class="text-end pe-4">
+              <button mat-button color="primary" class="btn-detail">ดูรายละเอียด</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</div>

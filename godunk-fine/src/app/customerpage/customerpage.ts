@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-customerpage',
@@ -10,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
 export class Customerpage implements OnInit {
   orders: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+     private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.fetchOrders();
@@ -31,9 +34,12 @@ export class Customerpage implements OnInit {
         console.log('✅ ข้อมูลเข้าแล้ว:', data);
         // ดักไว้เผื่อ API ส่งมาเป็น Object แทนที่จะเป็น Array
         if (Array.isArray(data)) {
+          
           this.orders = data;
+          this.cdr.detectChanges();
         } else {
           this.orders = [data]; // ถ้าเป็น Object ให้จับใส่ Array ให้มัน
+          this.cdr.detectChanges();
         }
       },
       error: (err) => {
