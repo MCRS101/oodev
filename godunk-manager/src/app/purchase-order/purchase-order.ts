@@ -21,7 +21,12 @@ export class PurchaseOrder implements OnInit {
   }
 
   loadOrders() {
-    this.http.get<any[]>('http://localhost:3000/api/getorder').subscribe((res) => {
+     const options = {
+      headers: {
+        'ngrok-skip-browser-warning': 'true'
+      }
+    };
+    this.http.get<any[]>('https://superlogically-unadministered-karyl.ngrok-free.dev/api/getorder',options).subscribe((res) => {
       this.orders = res.map((o) => ({
         po: o.id,
         customer: o.user.name,
