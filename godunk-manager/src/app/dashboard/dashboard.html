@@ -4,6 +4,14 @@
     <p class="text-muted">ภาพรวมการสั่งซื้อและสถานะการจัดส่งของคุณวันนี้</p>
   </div>
 
+  <div *ngIf="loading" class="alert alert-info mb-3">
+    กำลังโหลดข้อมูล...
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+    {{ errorMessage }}
+  </div>
+
   <div class="row g-4">
     <div class="col-lg-9">
       <div class="row g-3 mb-4">
@@ -15,11 +23,15 @@
               </div>
               <div>
                 <div class="text-muted small fw-bold">รอจัดส่งตามใบสั่งของ</div>
-                <div class="h3 m-0 fw-bold">3 <span class="fs-6 fw-normal">รายการ</span></div>
+                <div class="h3 m-0 fw-bold">
+                  {{ waitingCount }}
+                  <span class="fs-6 fw-normal">รายการ</span>
+                </div>
               </div>
             </div>
           </mat-card>
         </div>
+
         <div class="col-md-4">
           <mat-card class="stat-card border-0 shadow-sm p-4">
             <div class="d-flex align-items-center gap-3">
@@ -28,11 +40,15 @@
               </div>
               <div>
                 <div class="text-muted small fw-bold">กำลังจัดส่ง</div>
-                <div class="h3 m-0 fw-bold">12 <span class="fs-6 fw-normal">รายการ</span></div>
+                <div class="h3 m-0 fw-bold">
+                  {{ shippingCount }}
+                  <span class="fs-6 fw-normal">รายการ</span>
+                </div>
               </div>
             </div>
           </mat-card>
         </div>
+
         <div class="col-md-4">
           <mat-card class="stat-card border-0 shadow-sm p-4">
             <div class="d-flex align-items-center gap-3">
@@ -41,7 +57,7 @@
               </div>
               <div>
                 <div class="text-muted small fw-bold">ยอดขายเดือนนี้</div>
-                <div class="h3 m-0 fw-bold">฿145,200</div>
+                <div class="h3 m-0 fw-bold">฿{{ formatCurrency(monthlyTotal) }}</div>
               </div>
             </div>
           </mat-card>
@@ -51,8 +67,11 @@
       <mat-card class="border-0 shadow-sm p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h5 class="fw-bold m-0">ใบสั่งของล่าสุดที่ต้องจัดการ</h5>
-          <button mat-button color="primary" class="fw-bold">ดูทั้งหมด</button>
+          <button mat-button color="primary" class="fw-bold" (click)="goToOrders()">
+            ดูทั้งหมด
+          </button>
         </div>
+
         <div class="table-responsive">
           <table class="table table-borderless align-middle">
             <thead class="text-muted border-bottom">
@@ -63,24 +82,31 @@
                 <th class="pb-3 text-end">ยอดเงิน</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="border-bottom">
-                <td class="py-3 fw-bold text-primary">PO-1045</td>
-                <td class="text-muted">วันนี้ 10:30</td>
-                <td><span class="status-pill status-waiting">รอจัดส่ง</span></td>
-                <td class="text-end fw-bold">฿45,000</td>
+
+            <tbody *ngIf="latestOrders.length > 0">
+              <tr *ngFor="let order of latestOrders" class="border-bottom">
+                <td class="py-3 fw-bold text-primary">
+                  {{ formatOrderCode(order.po) }}
+                </td>
+                <td class="text-muted">
+                  {{ formatDate(order.date) }}
+                </td>
+                <td>
+                  <span class="status-pill" [ngClass]="getStatusClass(order.status)">
+                    {{ normalizeStatus(order.status) }}
+                  </span>
+                </td>
+                <td class="text-end fw-bold">
+                  ฿{{ formatCurrency(order.total) }}
+                </td>
               </tr>
-              <tr class="border-bottom">
-                <td class="py-3 fw-bold text-primary">PO-1044</td>
-                <td class="text-muted">เมื่อวาน</td>
-                <td><span class="status-pill status-waiting">รอจัดส่ง</span></td>
-                <td class="text-end fw-bold">฿12,500</td>
-              </tr>
+            </tbody>
+
+            <tbody *ngIf="!loading && latestOrders.length === 0">
               <tr>
-                <td class="py-3 fw-bold text-primary">PO-1040</td>
-                <td class="text-muted">20 ต.ค.</td>
-                <td><span class="status-pill status-shipping">กำลังจัดส่ง</span></td>
-                <td class="text-end fw-bold">฿85,200</td>
+                <td colspan="4" class="text-center text-muted py-4">
+                  ยังไม่มีข้อมูลคำสั่งซื้อ
+                </td>
               </tr>
             </tbody>
           </table>
@@ -97,6 +123,7 @@
           </div>
           <p class="m-0 opacity-75 small">(บทบาทของคุณในระบบ)</p>
         </div>
+
         <div class="p-4">
           <div class="mb-4">
             <div class="d-flex align-items-center gap-2 text-primary fw-bold mb-2">
@@ -106,6 +133,7 @@
               เป็นบริษัทคู่ค้าที่จำหน่ายสินค้า/วัตถุดิบให้กับบริษัทหลัก
             </div>
           </div>
+
           <div>
             <div class="d-flex align-items-center gap-2 text-primary fw-bold mb-2">
               <mat-icon class="fs-5">check_circle</mat-icon> หน้าที่
