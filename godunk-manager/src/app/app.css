@@ -1,0 +1,303 @@
+/* โครงสร้างหลัก: ปรับให้ Sidebar และเนื้อหาแยกกันชัดเจน */
+.app-container {
+  height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #0f172a !important; /* สีน้ำเงินเข้ม Slate */
+  color: white !important;
+  border: none !important;
+}
+
+/* ส่วนหัว Sidebar */
+.brand-section {
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.brand-section b { color: #6366f1; }
+
+/* รายการเมนู: ปรับระยะห่างและสี */
+.nav-label {
+  padding: 0 25px;
+  color: #475569;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin: 15px 0 5px;
+}
+
+.nav-item {
+  margin: 4px 15px !important;
+  border-radius: 12px !important;
+  color: #94a3b8 !important; /* สีเทาฟ้า */
+  height: 48px !important;
+}
+
+.nav-item.active {
+  background: #6366f1 !important; /* สีม่วงน้ำเงิน */
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.order-badge {
+  background: #ef4444;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  margin-left: auto;
+}
+
+/* Sidebar Footer (User Profile) */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid #1e293b;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 15px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  background: #6366f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.user-name { font-size: 0.8rem; font-weight: 600; }
+.logout { font-size: 0.7rem; color: #64748b; cursor: pointer; }
+
+/* Main Content Area */
+.main-content {
+  background: #f1f5f9; /* สีพื้นหลังเทานวล */
+}
+
+.top-header {
+  background: white;
+  padding: 12px 40px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.search-box {
+  background: #f1f5f9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  width: 350px;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.page-padding {
+  padding: 30px 40px;
+}
+
+/* การตกแต่ง Card และ Stat */
+.stat-card {
+  border-radius: 20px !important;
+  transition: 0.3s;
+}
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* กล่อง Role สีม่วง (ขวามือ) */
+.role-box {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+  color: white !important;
+  border-radius: 20px !important;
+}
+
+.role-icon {
+  background: rgba(255,255,255,0.2);
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.1);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+/* บังคับสีฟอนต์และไอคอนในเมนูให้เป็นสีขาว */
+.nav-item {
+  margin: 4px 15px !important;
+  border-radius: 12px !important;
+  color: #ffffff !important; /* ฟอนต์สีขาวปกติ */
+  transition: all 0.2s ease;
+}
+
+/* ไอคอนสีขาว */
+.nav-item mat-icon {
+  color: #ffffff !important;
+}
+
+/* ตัวหนังสือหัวข้อเมนู (Dashboard, ใบสั่งของ, สินค้า) */
+[matListItemTitle] {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+/* ตอนที่เอาเมาส์ไปวาง (Hover) */
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* เมนูที่ถูกเลือก (Active) */
+.nav-item.active {
+  background: #6366f1 !important; /* สีม่วงไฮไลท์ */
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* คำว่า "เมนูหลัก" (Label) ให้เป็นสีขาวจางๆ จะได้ดูแพง */
+.nav-label {
+  padding: 0 25px;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin: 20px 0 10px;
+}
+.order-badge {
+  background: #ff4d4f;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: auto;
+}
+/* ตกแต่งแจ้งเตือนตัวเลขสีแดง */
+.order-badge {
+  background-color: #ff4d4f !important; /* สีแดงสว่าง */
+  color: white !important;
+  font-size: 10px !important;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto; /* ดันไปขวาสุด */
+  box-shadow: 0 2px 4px rgba(255, 77, 79, 0.3);
+}
+
+/* ปรับสีฟอนต์เมนูเป็นสีขาวตามที่คุณต้องการ */
+.nav-item {
+  color: #ffffff !important;
+}
+
+.nav-item mat-icon {
+  color: #ffffff !important;
+  opacity: 0.9;
+}
+
+.nav-item [matListItemTitle] {
+  color: #ffffff !important;
+}
+/* บังคับสีฟอนต์และขนาดให้ดูอ่านง่าย */
+.menu-text {
+  color: #ffffff !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* ปรับระยะห่างไอคอน */
+.nav-item mat-icon {
+  color: #ffffff !important;
+  margin-right: 8px;
+}
+
+/* Badge สีแดงที่เมนูใบสั่งของ */
+.order-badge {
+  background: #ef4444;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%; /* ทำให้เป็นวงกลมเหมือนในรูป */
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+}
+/* สีปุ่ม Export และ Badge สถานะ */
+.export-btn { background-color: #6366f1 !important; border-radius: 10px !important; }
+.card-round { border-radius: 15px !important; }
+
+.po-table thead th { 
+  background-color: #f8fafc; 
+  color: #64748b; 
+  padding: 15px 10px; 
+  border: none; 
+  font-size: 0.85rem;
+}
+
+.status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+.status-badge.waiting { background-color: #fff7ed; color: #f59e0b; }
+.status-badge.shipping { background-color: #eff6ff; color: #3b82f6; }
+.status-badge.success { background-color: #f0fdf4; color: #22c55e; }
+.text-primary { color: #6366f1 !important; }
+/* โครงสร้างหลัก */
+.app-container { height: 100vh; background-color: #f8fafc; }
+.main-content { background-color: #f8fafc; overflow-y: auto; }
+.page-padding { padding: 30px 40px; }
+
+/* แถบด้านบน (Header) */
+.top-header { background: white; padding: 15px 40px; border-bottom: 1px solid #e2e8f0; }
+.search-box { display: flex; align-items: center; background: #f1f5f9; padding: 8px 16px; border-radius: 20px; width: 400px; }
+.search-box mat-icon { color: #94a3b8; font-size: 20px; width: 20px; height: 20px; margin-right: 8px; }
+.search-box input { border: none; background: transparent; outline: none; width: 100%; color: #334155; }
+
+/* การ์ดสถิติ (Stat Cards) */
+.stat-card { border-radius: 12px; }
+.icon-circle { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.icon-circle mat-icon { font-size: 24px; width: 24px; height: 24px; }
+
+/* ตาราง */
+.custom-table th { font-weight: 500; font-size: 14px; }
+.custom-table td { font-size: 14px; }
+.status-badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; display: inline-block; }
+
+/* ปุ่มปัดขอบมน */
+.rounded-btn { border-color: #e2e8f0; color: #6366f1; border-radius: 20px !important; }
+
+/* สีพื้นหลังเสริม (Subtle Colors) */
+.bg-warning-subtle { background-color: #fef3c7 !important; }
+.bg-primary-subtle { background-color: #e0e7ff !important; }
+.bg-success-subtle { background-color: #d1fae5 !important; }

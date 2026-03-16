@@ -1,0 +1,40 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap');
+
+* {
+  font-family: 'Sarabun', sans-serif !important;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f8fafc;
+}
+
+/* แก้ปัญหาไอคอนยืด */
+.material-icons {
+  font-family: 'Material Icons' !important;
+  display: inline-flex !important;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+/* จัดระเบียบโครงสร้างหลัก */
+mat-sidenav-container {
+  height: 100vh !important;
+}
+
+mat-sidenav {
+  width: 260px;
+  background-color: #0f172a !important; /* สีน้ำเงินเข้ม Slate */
+  color: white !important;
+  border: none !important;
+}
+/* บังคับให้ไอคอนแสดงผลเป็นรูปภาพ ไม่ใช่ข้อความ */
+.material-icons, [matListItemIcon] {
+  font-family: 'Material Icons' !important;
+  display: inline-flex !important;
+  vertical-align: middle;
+  line-height: 1;
+}

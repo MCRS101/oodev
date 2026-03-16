@@ -1,0 +1,173 @@
+/* ปุ่ม Export สีม่วงน้ำเงิน */
+.export-btn {
+  background-color: #5c67f2 !important;
+  border-radius: 10px !important;
+  padding: 8px 20px !important;
+}
+
+/* ปรับแต่งป้ายสถานะ (Pills) */
+.status-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-pill::before {
+  content: "●";
+  font-size: 10px;
+}
+
+/* สีแต่ละสถานะ */
+.status-pill.waiting {
+  background-color: #fff8e1;
+  color: #fbc02d;
+}
+
+.status-pill.shipping {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-pill.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* ปุ่มดูรายละเอียด */
+.detail-btn {
+  background-color: #f0f2ff !important;
+  color: #5c67f2 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* ลบเส้นขอบตารางตัวสุดท้าย */
+tr:last-child {
+  border-bottom: none !important;
+}
+/* 🌟 ลูกเล่น Search Box */
+.search-input-group {
+  display: flex;
+  align-items: center;
+  background: #f1f3f4;
+  padding: 5px 15px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+.search-input-group:focus-within {
+  background: #fff;
+  border-color: #3f51b5;
+  box-shadow: 0 0 8px rgba(63, 81, 181, 0.2);
+}
+.search-input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 10px;
+  width: 200px;
+}
+
+/* 🌟 ลูกเล่น Hover แถวตาราง */
+.product-row {
+  transition: 0.2s;
+  cursor: pointer;
+}
+.product-row:hover {
+  background-color: #f8faff !important;
+  transform: scale(1.01);
+}
+
+/* 🌟 Status Indicator พร้อมไฟกระพริบ */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.status-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-indicator.in-stock { background: #e8f5e9; color: #2e7d32; }
+.status-indicator.in-stock .dot { background: #4caf50; animation: pulse-green 2s infinite; }
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+/* 🌟 การ์ดใบสั่งซื้อแบบทันสมัย */
+.order-item-card {
+  border: none !important;
+  border-left: 5px solid #3f51b5 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  transition: 0.3s;
+}
+.order-item-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}
+/* คอนเทนเนอร์หลัก */
+.order-card-container {
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+/* แถวตารางมีลูกเล่น Hover */
+.order-row {
+  transition: 0.2s ease-in-out;
+}
+.order-row:hover {
+  background-color: #f8faff !important;
+  transform: scale(1.002);
+}
+
+/* ปุ่ม Export */
+.btn-export {
+  background-color: #5c67f2 !important;
+  color: white !important;
+  border-radius: 10px !important;
+  padding: 8px 20px !important;
+}
+
+/* Badge สถานะแบบโค้งมน */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.waiting { background: #fff8e1; color: #fbc02d; }
+.status-badge.shipping { background: #e3f2fd; color: #1976d2; }
+.status-badge.success { background: #e8f5e9; color: #2e7d32; }
+
+/* ปุ่มรายละเอียด */
+.btn-detail {
+  background-color: #f0f2ff !important;
+  color: #5c67f2 !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* หัวตาราง */
+th {
+  background-color: #fafbfc;
+  padding: 15px 10px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
