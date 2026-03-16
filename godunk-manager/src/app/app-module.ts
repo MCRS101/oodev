@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';            // ← เพิ่ม
+import { provideHttpClient } from '@angular/common/http'; // ← เพิ่ม
 
 import { Dashboard } from './dashboard/dashboard'; 
 import { PurchaseOrder } from './purchase-order/purchase-order';
@@ -24,23 +26,24 @@ import { Inventory } from './inventory/inventory';
     Dashboard,
     PurchaseOrder,
     Inventory,
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
+    FormsModule,        // ← เพิ่ม (แก้ ngModel error ทุก component)
     MatSidenavModule,
     MatListModule,
     MatIconModule,
     MatCardModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(), // ← เพิ่ม (แก้ HttpClient ใน PurchaseOrder)
   ],
   bootstrap: [App]
 })
-export class AppModule { } // 🌟 จบแค่นี้ ห้ามมีโค้ด HTML ต่อท้ายเด็ดขาดครับ
+export class AppModule { }
