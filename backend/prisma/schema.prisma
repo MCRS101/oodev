@@ -55,6 +55,8 @@ model Sale {
   createdAt DateTime  @default(now())
   userId    Int
   status    String    @default("รอจัดส่ง")
+  tranwin   String    @default("รอโอน")
+  imgpath   String?
 
   user      User      @relation(fields: [userId], references: [id])
   items     SaleItem[]

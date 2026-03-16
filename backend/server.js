@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", authRoutes);
-
+app.use('/imgsrc', express.static('public/imgsrc'))
 
 app.listen(3000, () => {
 

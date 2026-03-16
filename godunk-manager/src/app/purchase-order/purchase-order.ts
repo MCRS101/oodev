@@ -10,6 +10,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PurchaseOrder implements OnInit {
   orders: any[] = [];
+  isModalOpen: boolean = false; 
+  selectedOrder: any = null; 
+
+  // --- ส่วนที่เตรียมไว้สำหรับปุ่มอัปเดต ---
+  isUpdatingStatus: boolean = false; 
 
   constructor(
     private http: HttpClient,
@@ -21,21 +26,60 @@ export class PurchaseOrder implements OnInit {
   }
 
   loadOrders() {
-     const options = {
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }
+    const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
     };
-    this.http.get<any[]>('https://superlogically-unadministered-karyl.ngrok-free.dev/api/getorder',options).subscribe((res) => {
+    this.http.get<any[]>('https://superlogically-unadministered-karyl.ngrok-free.dev/api/getorder', options).subscribe((res) => {
       this.orders = res.map((o) => ({
         po: o.id,
         customer: o.user.name,
         date: o.createdAt,
         total: o.total,
         status: o.status,
+        raw_data: o, 
       }));
-      console.log(this.orders);
       this.cdr.detectChanges();
     });
+  }
+
+  openDetail(item: any) {
+    this.selectedOrder = item;
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedOrder = null;
+  }
+
+ async updateStatus(newStatus: string) {
+    if (this.isUpdatingStatus) return;
+    this.isUpdatingStatus = true;
+
+    // ข้อมูลที่ส่งไปหาเพื่อน (ต้องมี id และ status)
+    const body = {
+      id: this.selectedOrder.po, 
+      status: newStatus          
+    };
+
+    const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    };
+
+    // ยิงไปที่ Endpoint ที่เพื่อนให้มา
+    this.http.put('https://superlogically-unadministered-karyl.ngrok-free.dev/api/update-tranwin', body, options)
+      .subscribe({
+        next: (res) => {
+          alert(`อัปเดตออเดอร์หมายเลข ${body.id} เป็น "${newStatus}" สำเร็จ!`);
+          this.loadOrders(); // รีเฟรชตารางหน้าแรก
+          this.closeModal(); // ปิด Modal
+          this.isUpdatingStatus = false;
+        },
+        error: (err) => {
+          console.error('Update Error:', err);
+          alert('ไม่สามารถอัปเดตได้: ' + (err.error?.message || 'เซิร์ฟเวอร์ขัดข้อง'));
+          this.isUpdatingStatus = false;
+        }
+      });
   }
 }
