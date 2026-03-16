@@ -1,5 +1,29 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+
+exports.updateTranwin = async (req, res) => {
+  try {
+
+    const { id, tranwin, imgpath ,status} = req.body
+
+    const order = await prisma.sale.update({
+      where: {
+        id: id
+      },
+      data: {
+        tranwin: tranwin,
+        imgpath: imgpath,
+        status:  status
+      }
+    })
+
+    res.json(order)
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
 exports.getOrdersByUser = async (req, res) => {
 
   const userId = Number(req.params.userId);
@@ -39,7 +63,7 @@ exports.getOrdersAll = async (req, res) => {
         }
       },
        orderBy: {
-      createdAt: "asc"
+      createdAt: "desc"
     }
     })
 

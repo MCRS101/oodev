@@ -38,7 +38,7 @@
               </span>
             </td>
             <td class="text-end pe-4">
-              <button mat-button color="primary" class="btn-detail">ดูรายละเอียด</button>
+              <button mat-button color="primary" class="btn-detail" (click)="openDetail(item)">ดูรายละเอียด</button>
             </td>
           </tr>
         </tbody>
@@ -46,3 +46,67 @@
     </div>
   </mat-card>
 </div>
+
+<div *ngIf="isModalOpen" class="po-modal-backdrop">
+  <div class="po-modal-content">
+
+    <div class="po-modal-header">
+      <h4>รายละเอียดใบสั่งของ: {{ selectedOrder?.po }}</h4>
+      <button (click)="closeModal()" class="close-btn">&times;</button>
+    </div>
+
+    <div class="po-modal-body">
+      <p><strong>ชื่อลูกค้า:</strong> {{ selectedOrder?.customer }}</p>
+      <p><strong>วันที่สั่งซื้อ:</strong> {{ selectedOrder?.date | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>ยอดรวม:</strong> <span class="highlight-total">{{ selectedOrder?.total |
+          currency:'THB':'symbol-narrow':'1.0-0' }}</span></p>
+      <p><strong>สถานะ:</strong> {{ selectedOrder?.status }}</p>
+
+      <div class="customer-extra-box">
+        <p><strong>อีเมล:</strong> {{ selectedOrder?.raw_data?.user?.email }}</p>
+        <p><strong>เบอร์โทร:</strong> {{ selectedOrder?.raw_data?.user?.phone || '-' }}</p>
+        <p><strong>ที่อยู่จัดส่ง:</strong> {{ selectedOrder?.raw_data?.user?.location }}</p>
+      </div>
+
+      <h5>รายการสินค้า</h5>
+
+      <div class="product-list-scroll">
+        <div *ngFor="let item of selectedOrder?.raw_data?.items" class="product-item-row">
+
+          <img [src]="'https://superlogically-unadministered-karyl.ngrok-free.dev/' + item.product.image"
+            alt="{{ item.product.name }}" class="product-image">
+            
+          <div class="product-info">
+            <div class="product-name">{{ item.product.name }}</div>
+            <div class="product-desc">
+              บาร์โค้ด: {{ item.product.barcode }} | สต๊อก: {{ item.product.stock }}<br>
+              <span>{{ item.product.description }}</span>
+            </div>
+          </div>
+
+          <div class="product-price-section">
+            <div class="price-unit">{{ item.price | number }} ฿</div>
+            <div class="qty">x{{ item.qty }}</div>
+            <div class="price-total">รวม: {{ (item.price * item.qty) | number }} ฿</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="po-modal-footer">
+      <button (click)="closeModal()" class="btn-text-only">ปิดหน้าต่าง</button>
+
+      <div class="status-updater">
+        <select #statusSelect class="select-status" [disabled]="isUpdatingStatus">
+          <option value="รอจัดส่ง">🟡 รอจัดส่ง</option>
+          <option value="กำลังจัดส่ง">🔵 กำลังจัดส่ง</option>
+          <option value="จัดส่งเสร็จสิ้น">🟢 จัดส่งแล้ว</option>
+        </select>
+
+        <button class="btn-primary-update" (click)="updateStatus(statusSelect.value)" [disabled]="isUpdatingStatus">
+          <span *ngIf="!isUpdatingStatus">อัปเดต</span>
+          <span *ngIf="isUpdatingStatus">...</span>
+        </button>
+      </div>
+    </div>

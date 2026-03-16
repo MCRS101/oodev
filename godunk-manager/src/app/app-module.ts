@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';            // ← เพิ่ม
+import { provideHttpClient } from '@angular/common/http'; // ← เพิ่ม
 
 import { Dashboard } from './dashboard/dashboard';
 import { PurchaseOrder } from './purchase-order/purchase-order';
@@ -35,10 +37,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatCardModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(), // ← เพิ่ม (แก้ HttpClient ใน PurchaseOrder)
   ],
   bootstrap: [App]
 })

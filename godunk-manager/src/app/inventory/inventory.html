@@ -8,9 +8,14 @@
     <div class="d-flex gap-3 align-items-center">
       <div class="search-box-modern">
         <mat-icon>search</mat-icon>
-        <input type="text" placeholder="ค้นหารหัส หรือชื่อสินค้า...">
+        <input
+          type="text"
+          placeholder="ค้นหารหัส หรือชื่อสินค้า..."
+          name="searchQuery"
+          [(ngModel)]="searchQuery"
+        />
       </div>
-      <button mat-flat-button class="btn-add-stock">
+      <button mat-flat-button class="btn-add-stock" (click)="openAddModal()">
         <mat-icon>add</mat-icon> เพิ่มสินค้า
       </button>
     </div>
@@ -21,7 +26,8 @@
       <table class="table table-hover align-middle m-0">
         <thead>
           <tr>
-            <th class="ps-4">ข้อมูลสินค้า</th>
+            <th class="ps-4" style="width:60px">รูป</th>
+            <th>ข้อมูลสินค้า</th>
             <th>หมวดหมู่</th>
             <th class="text-center">คงเหลือ (สต็อก)</th>
             <th>สถานะ</th>
@@ -29,8 +35,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of products" class="row-item">
+          <tr *ngFor="let item of filteredProducts" class="row-item">
             <td class="ps-4">
+              <img
+                [src]="item.image"
+                [alt]="item.name"
+                class="product-thumb"
+                (error)="onImgError($event)"
+              />
+            </td>
+            <td>
               <div class="fw-bold text-dark">{{item.name}}</div>
               <div class="text-muted x-small text-uppercase">{{item.code}}</div>
             </td>
@@ -51,12 +65,146 @@
               </div>
             </td>
             <td class="text-center pe-4">
-              <button mat-icon-button class="btn-edit"><mat-icon>edit_note</mat-icon></button>
-              <button mat-icon-button class="btn-delete"><mat-icon>delete_sweep</mat-icon></button>
+              <button mat-icon-button class="btn-edit" (click)="openEditModal(item)">
+                <mat-icon>edit_note</mat-icon>
+              </button>
+              <button mat-icon-button class="btn-delete" (click)="deleteProduct(item)">
+                <mat-icon>delete_sweep</mat-icon>
+              </button>
             </td>
+          </tr>
+          <tr *ngIf="filteredProducts.length === 0">
+            <td colspan="6" class="text-center text-muted py-4">ไม่พบสินค้าที่ค้นหา</td>
           </tr>
         </tbody>
       </table>
     </div>
   </mat-card>
+</div>
+
+<!-- MODAL: เพิ่มสินค้า -->
+<div class="modal-overlay" *ngIf="showAddModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-header-custom">
+      <div class="d-flex align-items-center gap-2">
+        <mat-icon class="modal-icon-add">inventory_2</mat-icon>
+        <span class="modal-title-text">เพิ่มสินค้า / วัตถุดิบใหม่</span>
+      </div>
+      <button class="modal-close-btn" (click)="closeModal()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="form-group-custom">
+        <label class="form-label-custom">ชื่อสินค้า <span class="required">*</span></label>
+        <input class="form-input-custom" type="text" name="addName"
+          placeholder="เช่น ขวดพลาสติก PET 500ml" [(ngModel)]="form.name" />
+      </div>
+      <div class="form-row-half">
+        <div class="form-group-custom">
+          <label class="form-label-custom">รหัสสินค้า (SKU) <span class="required">*</span></label>
+          <input class="form-input-custom" type="text" name="addSku"
+            placeholder="เช่น PT-500-CL" [(ngModel)]="form.code" />
+        </div>
+        <div class="form-group-custom">
+          <label class="form-label-custom">หมวดหมู่ <span class="required">*</span></label>
+          <select class="form-input-custom" name="addCategory" [(ngModel)]="form.category">
+            <option value="" disabled>เลือกหมวดหมู่...</option>
+            <option value="วัสดุก่อสร้าง">วัสดุก่อสร้าง</option>
+            <option value="สีและเคมีภัณฑ์">สีและเคมีภัณฑ์</option>
+            <option value="ฝ้าและผนัง">ฝ้าและผนัง</option>
+            <option value="ประปา">ประปา</option>
+            <option value="บรรจุภัณฑ์">บรรจุภัณฑ์ (Packaging)</option>
+            <option value="อื่นๆ">อื่นๆ</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row-half">
+        <div class="form-group-custom">
+          <label class="form-label-custom">ราคาต่อหน่วย (บาท) <span class="required">*</span></label>
+          <input class="form-input-custom" type="number" name="addPrice"
+            placeholder="0.00" [(ngModel)]="form.price" />
+        </div>
+        <div class="form-group-custom">
+          <label class="form-label-custom">จำนวนสต็อกตั้งต้น <span class="required">*</span></label>
+          <input class="form-input-custom" type="number" name="addStock"
+            placeholder="0" [(ngModel)]="form.stock" />
+        </div>
+      </div>
+      <div class="form-group-custom">
+        <label class="form-label-custom">URL รูปภาพ</label>
+        <input class="form-input-custom" type="text" name="addImage"
+          placeholder="https://example.com/image.jpg" [(ngModel)]="form.image" />
+        <div *ngIf="form.image" class="mt-2 text-center">
+          <img [src]="form.image" class="product-thumb-preview" (error)="onImgError($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-cancel" (click)="closeModal()">ยกเลิก</button>
+      <button class="btn-save" (click)="saveAdd()">
+        <mat-icon style="font-size:18px;width:18px;height:18px;">check</mat-icon>
+        บันทึกสินค้า
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: แก้ไขสินค้า -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-header-custom">
+      <div class="d-flex align-items-center gap-2">
+        <mat-icon class="modal-icon-edit">edit</mat-icon>
+        <span class="modal-title-text">แก้ไขสินค้า / วัตถุดิบ</span>
+      </div>
+      <button class="modal-close-btn" (click)="closeModal()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="modal-body-custom">
+      <div class="form-group-custom">
+        <label class="form-label-custom">ชื่อสินค้า <span class="required">*</span></label>
+        <input class="form-input-custom" type="text" name="editName" [(ngModel)]="form.name" />
+      </div>
+      <div class="form-row-half">
+        <div class="form-group-custom">
+          <label class="form-label-custom">รหัสสินค้า (SKU) <span class="required">*</span></label>
+          <input class="form-input-custom" type="text" name="editSku" [(ngModel)]="form.code" />
+        </div>
+        <div class="form-group-custom">
+          <label class="form-label-custom">หมวดหมู่ <span class="required">*</span></label>
+          <select class="form-input-custom" name="editCategory" [(ngModel)]="form.category">
+            <option value="วัสดุก่อสร้าง">วัสดุก่อสร้าง</option>
+            <option value="สีและเคมีภัณฑ์">สีและเคมีภัณฑ์</option>
+            <option value="ฝ้าและผนัง">ฝ้าและผนัง</option>
+            <option value="ประปา">ประปา</option>
+            <option value="บรรจุภัณฑ์">บรรจุภัณฑ์ (Packaging)</option>
+            <option value="อื่นๆ">อื่นๆ</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row-half">
+        <div class="form-group-custom">
+          <label class="form-label-custom">ราคาต่อหน่วย (บาท) <span class="required">*</span></label>
+          <input class="form-input-custom" type="number" name="editPrice" [(ngModel)]="form.price" />
+        </div>
+        <div class="form-group-custom">
+          <label class="form-label-custom">จำนวนสต็อกตั้งต้น <span class="required">*</span></label>
+          <input class="form-input-custom" type="number" name="editStock" [(ngModel)]="form.stock" />
+        </div>
+      </div>
+      <div class="form-group-custom">
+        <label class="form-label-custom">URL รูปภาพ</label>
+        <input class="form-input-custom" type="text" name="editImage"
+          placeholder="https://example.com/image.jpg" [(ngModel)]="form.image" />
+        <div *ngIf="form.image" class="mt-2 text-center">
+          <img [src]="form.image" class="product-thumb-preview" (error)="onImgError($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer-custom">
+      <button class="btn-cancel" (click)="closeModal()">ยกเลิก</button>
+      <button class="btn-save btn-save-edit" (click)="saveEdit()">
+        <mat-icon style="font-size:18px;width:18px;height:18px;">check</mat-icon>
+        บันทึกการแก้ไข
+      </button>
+    </div>
+  </div>
 </div>
