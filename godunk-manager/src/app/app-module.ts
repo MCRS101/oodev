@@ -1,36 +1,35 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Dashboard } from './dashboard/dashboard'; 
+import { Dashboard } from './dashboard/dashboard';
 import { PurchaseOrder } from './purchase-order/purchase-order';
+import { Inventory } from './inventory/inventory';
 
-// Material Modules
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { Inventory } from './inventory/inventory';
-
 
 @NgModule({
   declarations: [
-    App,  
+    App,
     Dashboard,
     PurchaseOrder,
     Inventory,
-
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
@@ -43,4 +42,4 @@ import { Inventory } from './inventory/inventory';
   ],
   bootstrap: [App]
 })
-export class AppModule { } // 🌟 จบแค่นี้ ห้ามมีโค้ด HTML ต่อท้ายเด็ดขาดครับ
+export class AppModule { }
