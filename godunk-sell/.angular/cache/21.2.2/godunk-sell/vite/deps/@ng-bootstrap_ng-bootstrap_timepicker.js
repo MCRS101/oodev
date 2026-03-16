@@ -4,7 +4,7 @@ import {
   NgbTimepickerConfig,
   NgbTimepickerI18n,
   NgbTimepickerModule
-} from "./chunk-FGQV2M27.js";
+} from "./chunk-OO24WNAJ.js";
 import "./chunk-XZLJDI3M.js";
 import "./chunk-T3QSDYKE.js";
 import "./chunk-2D3CDRK4.js";
