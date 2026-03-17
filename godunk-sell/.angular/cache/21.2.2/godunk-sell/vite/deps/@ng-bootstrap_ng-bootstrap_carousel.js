@@ -5,7 +5,7 @@ import {
   NgbSlide,
   NgbSlideEventDirection,
   NgbSlideEventSource
-} from "./chunk-KFY3VRBF.js";
+} from "./chunk-DSNHAECB.js";
 import "./chunk-T3QSDYKE.js";
 import "./chunk-2D3CDRK4.js";
 import "./chunk-PMOVCN4L.js";

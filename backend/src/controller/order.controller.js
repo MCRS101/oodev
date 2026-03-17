@@ -1,28 +1,50 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-
-exports.updateTranwin = async (req, res) => {
+const fs = require('fs');
+const path = require('path');
+exports.getCategory = async (req, res) => {
   try {
 
-    const { id, tranwin, imgpath ,status} = req.body
+ const categories = await prisma.category.findMany({
+      orderBy: { id: 'asc' }
+    });
+
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+
+
+
+}
+exports.updateTranwin = async (req, res) => {
+  try {
+    const { id, tranwin } = req.body;
+
+    console.log('BODY:', req.body);
+    console.log('FILE:', req.file);
+
+    const image = req.file ? req.file.filename : null;
 
     const order = await prisma.sale.update({
-      where: {
-        id: id
-      },
+      where: { id: Number(id) },
       data: {
-        tranwin: tranwin,
-        imgpath: imgpath,
-        status:  status
+        tranwin,
+        imgpath: image ? `/uploads/${image}` : undefined
       }
-    })
+    });
 
-    res.json(order)
+    res.json({
+      message: 'updated',
+      image: image
+    });
 
   } catch (err) {
-    res.status(500).json(err)
+    console.error('🔥 UPDATE ERROR:', err);
+    res.status(500).json({ error: 'update failed' });
   }
-}
+};
 
 exports.getOrdersByUser = async (req, res) => {
 

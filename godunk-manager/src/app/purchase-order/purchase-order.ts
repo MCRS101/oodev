@@ -26,6 +26,7 @@ export class PurchaseOrder implements OnInit {
   }
 
   loadOrders() {
+      
     const options = {
       headers: { 'ngrok-skip-browser-warning': 'true' }
     };
@@ -36,7 +37,8 @@ export class PurchaseOrder implements OnInit {
         date: o.createdAt,
         total: o.total,
         status: o.status,
-        raw_data: o, 
+        raw_data: o,
+        Image: o.image
       }));
       this.cdr.detectChanges();
     });
@@ -81,5 +83,8 @@ export class PurchaseOrder implements OnInit {
           this.isUpdatingStatus = false;
         }
       });
+  }
+    onImgError(event: Event) {
+    (event.target as HTMLImageElement).src = 'https://placehold.co/48x48?text=No+Img';
   }
 }

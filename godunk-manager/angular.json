@@ -27,6 +27,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -35,6 +36,7 @@
                 "input": "public"
               }
             ],
+           
             "styles": [
               "src/material-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -74,6 +76,7 @@
             "production": {
               "buildTarget": "godunk-manager:build:production"
             },
+
             "development": {
               "buildTarget": "godunk-manager:build:development"
             }

@@ -16,13 +16,14 @@
             <div class="form-group">
                 <label>ชื่อผู้ใช้งาน <span class="asterisk">*</span></label>
                 <input type="text" [value]="user?.name" [(ngModel)]="user.name" name="name" />
-                <div class="helper-text">ชื่อผู้ใช้งานใช้สำหรับเข้าสู่ระบบ ไม่สามารถเปลี่ยนได้</div>
+                <div class="helper-text"></div>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <label>อีเมล</label>
+                    <label>อีเมล<span class="asterisk">*</span></label>
                     <input type="email" [value]="user?.email || ''" placeholder="example@gmail.com" readonly />
+                    <div class="helper-text">อีเมลใช้สำหรับเข้าสู่ระบบ ไม่สามารถเปลี่ยนได้</div>
                 </div>
                 <div class="col">
                     <label>เบอร์โทรศัพท์ <span class="asterisk">*</span></label>

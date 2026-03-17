@@ -101,7 +101,7 @@ export class Customerpage implements OnInit {
 
     this.selectedFile = file;
     this.selectedFileName = file.name;
-    this.selectedFilePath = input.value;
+
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -118,57 +118,38 @@ export class Customerpage implements OnInit {
   }
 
   confirmUpload(): void {
-    if (!this.selectedOrder || !this.selectedFile || !this.selectedPreview) {
-      alert('กรุณาเลือกภาพก่อน');
-      return;
-    }
-
-    const imgpath = this.buildImagePath(this.selectedFile.name);
-
-    const body = {
-      id: this.selectedOrder.id,
-      tranwin: 'โอนแล้ว',
-      imgpath: imgpath
-    };
-
-    const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/update-tranwin';
-
-    const options = {
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }
-    };
-
-    this.http.put(url, body, options).subscribe({
-      next: (res) => {
-        console.log('อัปเดตสำเร็จ:', res);
-
-        this.selectedOrder.slipFile = this.selectedFile;
-        this.selectedOrder.slipName = this.selectedFileName;
-        this.selectedOrder.slipPath = imgpath;
-        this.selectedOrder.slipPreview = this.selectedPreview;
-
-        this.selectedOrder.transferStatus = 'โอนแล้ว';
-        this.selectedOrder.actionLabel = 'ตรวจสอบสลิป';
-        this.selectedOrder.tranwin = 'โอนแล้ว';
-        this.selectedOrder.imgpath = imgpath;
-
-        this.showUploadModal = false;
-        this.selectedOrder = null;
-        this.selectedFile = null;
-        this.selectedFileName = '';
-        this.selectedFilePath = '';
-        this.selectedPreview = '';
-
-        this.fetchOrders();
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('อัปเดต order ไม่สำเร็จ:', err);
-        alert('บันทึกข้อมูลไม่สำเร็จ');
-      }
-    });
+  if (!this.selectedOrder || !this.selectedFile) {
+    alert('กรุณาเลือกภาพก่อน');
+    return;
   }
+
+  const formData = new FormData();
+  formData.append('image', this.selectedFile); // 🔥 สำคัญมาก
+  formData.append('id', this.selectedOrder.id);
+  formData.append('tranwin', 'โอนแล้ว');
+
+  const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/update-tranwin';
+
+  this.http.put(url, formData).subscribe({
+    next: (res: any) => {
+      console.log('อัปโหลดสำเร็จ:', res);
+
+      // 🔥 ใช้ path ที่ backend ส่งกลับมา
+      this.selectedOrder.slipPreview =
+        'https://superlogically-unadministered-karyl.ngrok-free.dev/uploads/' + res.image;
+
+      this.selectedOrder.transferStatus = 'โอนแล้ว';
+      this.selectedOrder.actionLabel = 'ตรวจสอบสลิป';
+
+      this.closeUploadPopup();
+      this.fetchOrders();
+    },
+    error: (err) => {
+      console.error(err);
+      alert('อัปโหลดไม่สำเร็จ');
+    }
+  });
+}
 
   openSlipPopup(order: any): void {
     this.selectedOrder = order;
@@ -184,7 +165,5 @@ export class Customerpage implements OnInit {
     return status === 'โอนแล้ว' ? 'badge-success' : 'badge-warning';
   }
 
-  buildImagePath(fileName: string): string {
-    return `/roob/${fileName}`;
-  }
+
 }
