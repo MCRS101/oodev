@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-customerpage',
@@ -28,7 +30,36 @@ export class Customerpage implements OnInit {
   ngOnInit(): void {
     this.fetchOrders();
   }
+exportExcel() {
+  const data = this.orders.map(o => ({
+    'รหัสใบสั่งซื้อ (Order ID)': o.id,
+    'ชื่อลูกค้า (Customer)': o.user?.name,
+    'วันที่': new Date(o.createdAt).toLocaleString(),
+    'ยอดเงินที่ต้องรับ': o.total,
+    'สถานะการโอน': o.transferStatus
+  }));
 
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+  const workbook: XLSX.WorkBook = {
+    Sheets: { 'Orders': worksheet },
+    SheetNames: ['Orders']
+  };
+
+  const excelBuffer: any = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+
+  this.saveAsExcelFile(excelBuffer, 'orders');
+}
+saveAsExcelFile(buffer: any, fileName: string): void {
+  const data: Blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+  });
+
+  FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + '.xlsx');
+}
   fetchOrders(): void {
     const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/getorder';
 

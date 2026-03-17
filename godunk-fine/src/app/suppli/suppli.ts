@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 @Component({
   selector: 'app-suppli',
   standalone: false,
   templateUrl: './suppli.html',
   styleUrl: './suppli.css',
 })
-export class Suppli implements OnInit {orders: any[] = [];
+export class Suppli implements OnInit {
+  orders: any[] = [];
 
   showUploadModal = false;
   showSlipModal = false;
@@ -21,20 +24,38 @@ export class Suppli implements OnInit {orders: any[] = [];
 
   constructor(
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.fetchOrders();
   }
-
+  exportExcel() {
+    const data = this.orders.map((o) => ({
+      รหัสใบสั่งซื้อ: o.id,
+      วันที่: new Date(o.createdAt).toLocaleString(),
+      ชื่อผู้ขาย: o.username,
+      ยอดเงิน: o.total,
+      สถานะการโอน: o.transferStatus,
+    }));
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { Suppliers: worksheet }, SheetNames: ['Suppliers'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'supplier_orders');
+  }
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+    FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + '.xlsx');
+  }
   fetchOrders(): void {
     const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/manager';
 
     const options = {
       headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }
+        'ngrok-skip-browser-warning': 'true',
+      },
     };
 
     this.http.get<any>(url, options).subscribe({
@@ -53,7 +74,7 @@ export class Suppli implements OnInit {orders: any[] = [];
           slipPath: order.imgpath || '',
           slipPreview: order.imgpath
             ? `https://superlogically-unadministered-karyl.ngrok-free.dev${order.imgpath}`
-            : ''
+            : '',
         }));
 
         this.cdr.detectChanges();
@@ -61,7 +82,7 @@ export class Suppli implements OnInit {orders: any[] = [];
       error: (err) => {
         console.error('❌ ดึงข้อมูลไม่สำเร็จ:', err);
         alert('ดึง API ไม่สำเร็จ! (กรุณากด F12 ดู Console)');
-      }
+      },
     });
   }
 
@@ -101,7 +122,6 @@ export class Suppli implements OnInit {orders: any[] = [];
     this.selectedFile = file;
     this.selectedFileName = file.name;
 
-
     const reader = new FileReader();
     reader.onload = () => {
       this.selectedPreview = reader.result as string;
@@ -117,38 +137,38 @@ export class Suppli implements OnInit {orders: any[] = [];
   }
 
   confirmUpload(): void {
-  if (!this.selectedOrder || !this.selectedFile) {
-    alert('กรุณาเลือกภาพก่อน');
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('image', this.selectedFile); // 🔥 สำคัญมาก
-  formData.append('id', this.selectedOrder.id);
-  formData.append('tranwin', 'โอนแล้ว');
-
-  const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/manager';
-
-  this.http.put(url, formData).subscribe({
-    next: (res: any) => {
-      console.log('อัปโหลดสำเร็จ:', res);
-
-      // 🔥 ใช้ path ที่ backend ส่งกลับมา
-      this.selectedOrder.slipPreview =
-        'https://superlogically-unadministered-karyl.ngrok-free.dev/uploads/' + res.image;
-
-      this.selectedOrder.transferStatus = 'โอนแล้ว';
-      this.selectedOrder.actionLabel = 'ตรวจสอบสลิป';
-
-      this.closeUploadPopup();
-      this.fetchOrders();
-    },
-    error: (err) => {
-      console.error(err);
-      alert('อัปโหลดไม่สำเร็จ');
+    if (!this.selectedOrder || !this.selectedFile) {
+      alert('กรุณาเลือกภาพก่อน');
+      return;
     }
-  });
-}
+
+    const formData = new FormData();
+    formData.append('image', this.selectedFile); // 🔥 สำคัญมาก
+    formData.append('id', this.selectedOrder.id);
+    formData.append('tranwin', 'โอนแล้ว');
+
+    const url = 'https://superlogically-unadministered-karyl.ngrok-free.dev/api/manager';
+
+    this.http.put(url, formData).subscribe({
+      next: (res: any) => {
+        console.log('อัปโหลดสำเร็จ:', res);
+
+        // 🔥 ใช้ path ที่ backend ส่งกลับมา
+        this.selectedOrder.slipPreview =
+          'https://superlogically-unadministered-karyl.ngrok-free.dev/uploads/' + res.image;
+
+        this.selectedOrder.transferStatus = 'โอนแล้ว';
+        this.selectedOrder.actionLabel = 'ตรวจสอบสลิป';
+
+        this.closeUploadPopup();
+        this.fetchOrders();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('อัปโหลดไม่สำเร็จ');
+      },
+    });
+  }
 
   openSlipPopup(order: any): void {
     this.selectedOrder = order;
@@ -163,6 +183,4 @@ export class Suppli implements OnInit {orders: any[] = [];
   getStatusClass(status: string): string {
     return status === 'โอนแล้ว' ? 'badge-success' : 'badge-warning';
   }
-
-
 }

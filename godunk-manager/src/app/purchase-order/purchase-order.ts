@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-purchase-order',
@@ -24,7 +26,36 @@ export class PurchaseOrder implements OnInit {
   ngOnInit() {
     this.loadOrders();
   }
+exportExcel() {
+  const data = this.orders.map(o => ({
+    'รหัส PO': o.po,
+    'ลูกค้า': o.customer,
+    'วันที่': new Date(o.date).toLocaleString(),
+    'ยอดรวม': o.total,
+    'สถานะ': o.status
+  }));
 
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+  const workbook: XLSX.WorkBook = {
+    Sheets: { 'Orders': worksheet },
+    SheetNames: ['Orders']
+  };
+
+  const excelBuffer: any = XLSX.write(workbook, {
+    bookType: 'xlsx',
+    type: 'array'
+  });
+
+  this.saveAsExcelFile(excelBuffer, 'orders');
+}
+saveAsExcelFile(buffer: any, fileName: string): void {
+  const data: Blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+  });
+
+  FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + '.xlsx');
+}
   loadOrders() {
       
     const options = {
