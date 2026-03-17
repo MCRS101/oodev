@@ -37,6 +37,7 @@ export class Inventory implements OnInit {
     categoryId: number | null;
     price: number | null;
     cost: number | null;
+    sales: number | null;
     stock: number | null;
   } = {
     image: '',
@@ -46,6 +47,7 @@ export class Inventory implements OnInit {
     categoryId: null,
     price: null,
     cost: null,
+    sales: null,
     stock: null,
   };
 
@@ -123,6 +125,7 @@ loadProducts() {
             categoryId: p.categoryId,
             stock: p.stock,
             unit: 'ชิ้น',
+            sales: p.price,
             price: p.price,
             cost: p.cost,
             image: imageUrl, // ✅ ใช้ตัวที่เราคำนวณ
@@ -167,6 +170,7 @@ deleteProduct(item: any) {
       price: null,
       stock: null,
       cost: null,
+      sales: null,
       image: '',
     };
 
@@ -183,6 +187,7 @@ deleteProduct(item: any) {
       categoryId: item.categoryId, // ⭐ ต้องมีจาก backend
       price: item.price,
       cost: item.cost,
+      sales: item.sales,
       stock: item.stock,
       image: item.image || '',
     };
@@ -197,7 +202,7 @@ deleteProduct(item: any) {
 
   // ── Save ─────────────────────────────────
   saveAdd() {
-    const { name, code, categoryId,description, price,cost, stock } = this.form;
+    const { name, code, categoryId,description, price,cost, stock,sales } = this.form;
 
     if (!name || !code || categoryId == null || price == null || stock == null) {
       alert('กรุณากรอกข้อมูลให้ครบ');
@@ -209,6 +214,7 @@ deleteProduct(item: any) {
     formData.append('name', name);
     formData.append('price', String(price)); // ⭐ ใช้ String() ดีกว่า
     formData.append('cost', String(cost));
+    formData.append('sales', String(price));
     formData.append('barcode', code);
     formData.append('description', String(description));
     formData.append('categoryId', String(categoryId));

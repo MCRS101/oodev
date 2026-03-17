@@ -21,8 +21,27 @@
             </p>
 
             <p class="text-success fw-bold">
-              {{product.price}} บาท
+              {{product.sales}} บาท
             </p>
+            <div class="price-box">
+
+              <div *ngIf="product.price == product.cost" class="badge-sale">
+                🔥 ลดราคา
+              </div>
+
+              <span *ngIf="product.price == product.cost">
+                <del style="opacity: 50%;">฿ {{ product.sales }}</del>
+                <span class="discount" style="color: red;">
+                  -{{ ((product.sales - product.cost) / product.sales * 100) | number:'1.0-0' }}%
+                </span>
+              </span>
+              <br>
+              <span *ngIf="product.price == product.cost">
+                 ฿{{ product.price }}
+              </span>
+
+            </div>
+
 
             <span class="badge bg-primary">
               {{product.category?.name}}
@@ -42,7 +61,7 @@
 
             <button class="btn btn-success w-100" [disabled]="product.stock <= 0" (click)="addToCart(product)">
               <span *ngIf="product.stock > 0">เพิ่มลงตะกร้า</span>
-              <span *ngIf="product.stock <= 0" >สินค้าหมด</span>
+              <span *ngIf="product.stock <= 0">สินค้าหมด</span>
             </button>
 
           </div>

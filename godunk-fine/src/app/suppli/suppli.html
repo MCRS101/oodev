@@ -17,36 +17,87 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>รหัสสั่งซื้อ (PO Number)</th>
-          <th>วันที่ Manager สั่ง</th>
-          <th>ชื่อผู้ขาย (Supplier)</th>
-          <th>ยอดเงินที่ต้องจ่าย</th>
-          <th>สถานะการจ่ายเงิน</th>
+          <th>รหัสใบสั่งซื้อ</th>
+          <th>วันที่</th>
+          <th>ชื่อผู้ขาย </th>
+          <th>ยอดเงินที่ต้องรับ</th>
+          <th>สถานะการโอน</th>
           <th>จัดการ</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>PO-2026-055</td>
-          <td>10 มี.ค. 2026</td>
-          <td>Supplier B (ผู้ขายวัตถุดิบ)</td>
-          <td class="text-red">฿ 22,000</td>
-          <td><span class="badge badge-warning">รอจ่ายเงิน</span></td>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ order.username }}</td>
+          <td style="color: #ff0000; font-weight: bold;">฿ {{ order.total | number }}</td>
+
           <td>
-            <button class="btn btn-primary">ทำรายการจ่าย</button>
+            <span class="badge" [ngClass]="getStatusClass(order.transferStatus)">
+              {{ order.transferStatus }}
+            </span>
           </td>
-        </tr>
-        <tr>
-          <td>PO-2026-054</td>
-          <td>08 มี.ค. 2026</td>
-          <td>Supplier C</td>
-          <td class="text-red">฿ 18,000</td>
-          <td><span class="badge badge-success">ชำระแล้ว</span></td>
+
           <td>
-            <button class="btn btn-outline">ดูหลักฐาน</button>
+            <button class="btn btn-primary" (click)="openAction(order)">
+              {{ order.actionLabel }}
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- Upload Modal -->
+<div class="modal-backdrop" *ngIf="showUploadModal">
+  <div class="custom-modal">
+    <div class="modal-header-row">
+      <h3>อัปโหลดภาพสลิป</h3>
+      <button class="close-btn" (click)="closeUploadPopup()">✕</button>
+    </div>
+
+    <div class="modal-body-content">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+      <div class="file-info" *ngIf="selectedFileName">
+        <p><strong>ชื่อไฟล์:</strong> {{ selectedFileName }}</p>
+        <p><strong>Path:</strong> {{ selectedFilePath }}</p>
+      </div>
+
+      <div class="preview-box" *ngIf="selectedPreview">
+        <img [src]="selectedPreview" alt="Slip Preview" />
+      </div>
+    </div>
+
+    <div class="modal-footer-row">
+      <button class="btn btn-outline" (click)="closeUploadPopup()">ยกเลิก</button>
+      <button class="btn btn-primary" (click)="confirmUpload()">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<!-- Slip View Modal -->
+<div class="modal-backdrop" *ngIf="showSlipModal && selectedOrder">
+  <div class="custom-modal">
+    <div class="modal-header-row">
+      <h3>ตรวจสอบสลิป</h3>
+      <button class="close-btn" (click)="closeSlipPopup()">✕</button>
+    </div>
+
+    <div class="modal-body-content">
+      <p><strong>Order ID:</strong> {{ selectedOrder.id }}</p>
+      <p><strong>ลูกค้า:</strong> {{ selectedOrder.user?.name }}</p>
+      <p><strong>ชื่อไฟล์:</strong> {{ selectedOrder.slipName }}</p>
+      <p><strong>Path:</strong> {{ selectedOrder.slipPath }}</p>
+
+      <div class="preview-box" *ngIf="selectedOrder.slipPreview">
+        <img [src]="selectedOrder.slipPreview" alt="Slip Image" />
+      </div>
+    </div>
+
+    <div class="modal-footer-row">
+      <button class="btn btn-primary" (click)="closeSlipPopup()">ปิด</button>
+    </div>
   </div>
 </div>

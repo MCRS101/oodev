@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { Dashboard } from './dashboard/dashboard'; 
 import { PurchaseOrder } from './purchase-order/purchase-order'; 
 import { Inventory } from './inventory/inventory'; 
+import { Manager } from './manager/manager';
 // 💰 เพิ่ม Import หน้าการเงิน
 
 
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: '', component: Dashboard }, 
   { path: 'dashboard', component: Dashboard }, 
   { path: 'purchase-order', component: PurchaseOrder }, 
-  { path: 'inventory', component: Inventory }, 
+  { path: 'inventory', component: Inventory },
+  { path: 'manager', component: Manager }
   
   // 💰 เพิ่มเส้นทาง (Path) หน้าการเงิน
 

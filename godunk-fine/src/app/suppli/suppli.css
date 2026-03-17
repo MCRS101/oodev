@@ -102,13 +102,12 @@
   border-bottom: none;
 }
 
-/* Utilities (สีตัวหนังสือ) */
-.text-red {
-  color: #ef4444 !important; /* สีแดงสำหรับยอดจ่าย */
-  font-weight: 500;
+/* Utilities */
+.text-green {
+  color: #10b981 !important;
 }
 
-/* Badges (ป้ายสถานะ) */
+/* Badges */
 .badge {
   padding: 6px 12px;
   border-radius: 20px;
@@ -129,9 +128,9 @@
   color: #b45309;
 }
 
-/* Action Buttons (ปุ่มกดในตาราง) */
+/* Action Buttons */
 .btn {
-  padding: 8px 16px;
+  padding: 6px 16px;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
@@ -158,4 +157,112 @@
 
 .btn-primary:hover {
   background-color: #2563eb;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.custom-modal {
+  width: 560px;
+  max-width: 92vw;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  padding: 20px;
+}
+
+.modal-header-row,
+.modal-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-header-row h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.modal-body-content {
+  margin: 16px 0;
+}
+
+.file-info {
+  margin-top: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.file-info p {
+  margin: 6px 0;
+  word-break: break-all;
+}
+
+.preview-box {
+  margin-top: 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.preview-box img {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.close-btn:hover {
+  color: #0f172a;
+}
+
+.preview-box {
+  margin-top: 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.preview-box img {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.modal-body-content input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  box-sizing: border-box;
 }
