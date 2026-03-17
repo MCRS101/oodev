@@ -1,0 +1,43 @@
+
+<div class="container mt-4">
+  <h3>➕ เพิ่มรายการโอนเงิน</h3>
+
+  <form (ngSubmit)="submit()" #form="ngForm">
+
+    <!-- username -->
+    <div class="mb-3">
+      <label>ชื่อบริษัทที่สั่ง</label>
+      <input 
+        type="text" 
+        class="form-control"
+        [(ngModel)]="formData.username"
+        name="username"
+        required>
+    </div>
+
+    <!-- total -->
+    <div class="mb-3">
+      <label>จำนวนเงิน</label>
+      <input 
+        type="number" 
+        class="form-control"
+        [(ngModel)]="formData.total"
+        name="total"
+        required>
+    </div>
+
+    <!-- upload -->
+
+
+    <!-- preview -->
+    <div *ngIf="previewUrl" class="mb-3">
+      <p>Preview:</p>
+      <img [src]="previewUrl" width="200">
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!form.valid">
+      บันทึก
+    </button>
+
+  </form>
+</div>

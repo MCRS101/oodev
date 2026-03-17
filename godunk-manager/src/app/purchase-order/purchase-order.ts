@@ -69,7 +69,7 @@ export class PurchaseOrder implements OnInit {
     };
 
     // ยิงไปที่ Endpoint ที่เพื่อนให้มา
-    this.http.put('https://superlogically-unadministered-karyl.ngrok-free.dev/api/update-tranwin', body, options)
+    this.http.put('https://superlogically-unadministered-karyl.ngrok-free.dev/api/updatestautus', body, options)
       .subscribe({
         next: (res) => {
           alert(`อัปเดตออเดอร์หมายเลข ${body.id} เป็น "${newStatus}" สำเร็จ!`);

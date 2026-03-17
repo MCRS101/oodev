@@ -21,7 +21,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
+//createManager
+router.post('/manager', upload.single('image'), orderController.createManager);
+//updateTranwin
+router.put('/manager', upload.single('image'), orderController.updateManager);
+//getManager
+router.get('/manager', orderController.getManager)
 
 router.post('/products', upload.single('image'), productsController.createProduct);
 
@@ -32,6 +37,8 @@ router.delete('/products/:id', productsController.deleteProduct);
 router.put('/products/:id', productsController.updateProduct)
 
 router.put('/update-tranwin',upload.single('image'), orderController.updateTranwin)
+
+router.put('/updatestautus', orderController.updateStatus)
 
 router.put("/update-profile", authController.updateProfile);
 
