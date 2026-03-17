@@ -7,12 +7,15 @@ const authRoutes = require("./src/routes/auth.routes");
 
 
 const app = express();
+const path = require('path');
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors());
 app.use(express.json());
 
 app.use("/api", authRoutes);
 app.use('/imgsrc', express.static('public/imgsrc'))
+
 
 app.listen(3000, () => {
 

@@ -38,6 +38,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatTableModule,
     MatButtonModule,
+     FormsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
