@@ -19,7 +19,7 @@ constructor( private http: HttpClient) {
   ngOnInit(): void {}
   saveProfile() {
     // ส่งข้อมูล user ล่าสุดในตัวแปร user ไปที่ API
-    this.http.put('/api/update-profile', this.user).subscribe({
+    this.http.put('https://superlogically-unadministered-karyl.ngrok-free.dev/api/update-profile', this.user).subscribe({
       next: (res: any) => {
         alert('บันทึกข้อมูลสำเร็จ');
         // 3. สั่ง Reload หน้าจอเพื่อให้ข้อมูลใหม่แสดงผลทุกจุด

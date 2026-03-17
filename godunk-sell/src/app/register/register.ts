@@ -27,7 +27,7 @@ export class Register {
       password: this.password
     };
 
-    this.http.post("/api/register", body)
+    this.http.post("https://superlogically-unadministered-karyl.ngrok-free.dev/api/register", body)
     .subscribe({
       next:(res:any)=>{
         alert("Register success");
