@@ -67,16 +67,22 @@ export class Navbar {
     }
   }
   loadOrders() {
+     const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    };
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const userId = user.id;
 
-    this.http.get<any>(`/api/orders/user/${userId}?page=${this.page}`).subscribe((res) => {
+    this.http.get<any>(`https://superlogically-unadministered-karyl.ngrok-free.dev/api/orders/user/${userId}?page=${this.page}`,options).subscribe((res) => {
       this.orders = res;
       this.cdr.detectChanges();
       console.log(res);
     });
   }
   checkout() {
+      const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    };
     if (this.cartService.getCart().length === 0) {
       alert('ตะกร้าว่าง');
       return;
@@ -101,7 +107,7 @@ export class Navbar {
         }
 
         // ⭐ ดึงข้อมูล order ใหม่
-        this.http.get(`/api/order/${orderId}`).subscribe((order: any) => {
+        this.http.get(`https://superlogically-unadministered-karyl.ngrok-free.dev/api/order/${orderId}`,options).subscribe((order: any) => {
           console.log('ORDER FROM API:', order);
 
           this.receipt = order;
@@ -125,7 +131,10 @@ export class Navbar {
     });
   }
   viewReceipt(id: number) {
-    this.http.get(`/api/order/${id}`).subscribe((order: any) => {
+        const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    };
+    this.http.get(`https://superlogically-unadministered-karyl.ngrok-free.dev/api/order/${id}`,options).subscribe((order: any) => {
       this.receipt = order;
 
       // บังคับ Angular render

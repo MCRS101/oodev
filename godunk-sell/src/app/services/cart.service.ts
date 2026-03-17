@@ -36,7 +36,9 @@ getTotalQty(){
   },0)
 }
 checkout(userId:number){
-
+  const options = {
+      headers: { 'ngrok-skip-browser-warning': 'true' }
+    };
     const payload = {
       userId: userId,
       items: this.cart.map(item => ({
@@ -46,7 +48,7 @@ checkout(userId:number){
       }))
     }
 
-    return this.http.post("/api/order", payload)
+    return this.http.post("https://superlogically-unadministered-karyl.ngrok-free.dev/api/order", payload,options)
 
   }
 
