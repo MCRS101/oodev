@@ -16,9 +16,12 @@ export class Navbar {
   receipt: any = null;
   orders: any[] = [];
   page = 1;
-  increase(item: any) {
-    item.qty++;
+increase(item: any) {
+  if (item.qty >= item.stock) {
+    return;
   }
+  item.qty++;
+}
 
   decrease(item: any) {
     if (item.qty > 1) {

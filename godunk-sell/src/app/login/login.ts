@@ -26,7 +26,7 @@ export class Login {
       password: this.password,
     };
 
-    this.http.post('/api/login', body).subscribe({
+    this.http.post('https://superlogically-unadministered-karyl.ngrok-free.dev/api/login', body).subscribe({
       next: (res: any) => {
         alert('Login success');
 
